@@ -1,0 +1,288 @@
+/*
+Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+*/
+
+body
+{
+	/* Font */
+	font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
+	font-size: 12px;
+
+	/* Text color */
+	color: #333;
+
+	/* Remove the background color to make it transparent */
+	background-color: #fff;
+
+	margin: 20px;
+}
+
+.cke_editable
+{
+	font-size: 13px;
+	line-height: 1.6;
+
+	/* Fix for missing scrollbars with RTL texts. (#10488) */
+	word-wrap: break-word;
+}
+
+blockquote
+{
+	font-style: italic;
+	font-family: Georgia, Times, "Times New Roman", serif;
+	padding: 2px 0;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 0;
+}
+
+.cke_contents_ltr blockquote
+{
+	padding-left: 20px;
+	padding-right: 8px;
+	border-left-width: 5px;
+}
+
+.cke_contents_rtl blockquote
+{
+	padding-left: 8px;
+	padding-right: 20px;
+	border-right-width: 5px;
+}
+
+a,
+template-a,
+a[data-model-type][data-model-id]
+{
+	/*color: #0782C1;*/
+	color: #03d;
+	text-decoration: none;
+	border: 1px dotted;
+}
+template-a {
+	border-color: #fb0;
+	background: #fff2d0;
+}
+a[data-model-type][data-model-id]
+{
+	border-color: #6b0;
+	background: #f2ffe6;
+}
+
+/** Warning if there is a link is nested in another */
+a a,
+a template-a,
+template-a a,
+template-a template-a
+{
+	color: #f00;
+}
+a a:before,
+a template-a:before,
+template-a a:before,
+template-a template-a:before,
+a.empty-text:before,
+a.empty-title:before,
+a.empty-href:before,
+a.invalid-href:before
+{
+	content: "";
+	display: inline-block;
+	position: absolute;
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http:%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox='0 0 473.931 473.931'><circle cx='237' cy='237' r='237' fill='%23E84849'%2F><path fill='%23EDC92C' d='M409.3 334L246.7 72c-2-3.2-5.3-5-8.8-5-3.7 0-7 1.8-9 5L66 334.5c-2 3.2-2 7.3-.3 10.5 2 3.4 5.4 5.5 9 5.5H401c5.7 0 10.3-4.7 10.3-10.4 0-2.2-.7-4.4-2-6z'%2F><path d='M225.8 242l-3.4-50.3c-.6-10-1-17-1-21.2 0-5.8 1.6-10.4 4.7-13.6 3-3.4 7.2-5 12-5 6.2 0 10.2 2 12.3 6.2 2 4.2 3 10.2 3 18 0 4.7-.2 9.4-.7 14.2l-4.6 52c-.4 6-1.5 10.8-3 14-1.7 3.4-4.4 5-8 5-4 0-6.5-1.5-8-4.7s-2.6-8-3.2-14.6zm11.7 69.4c-4.3 0-8-1.4-11.2-4.2-3.2-2.7-4.8-6.6-4.8-11.6 0-4.3 1.5-8 4.6-11 3-3.2 7-4.7 11.3-4.7 4.4 0 8.2 1.4 11.3 4.5 3 3 4.7 6.8 4.7 11 0 5-1.6 9-4.7 11.7-3.2 2.8-7 4.2-11 4.2z'%2F><%2Fsvg>");
+	background-position: 0.2em center;
+	background-repeat: no-repeat;
+	background-color: #fff4b0;
+	min-height: 1em;
+	line-height: 1em;
+	background-size: 1em;
+	font-size: 0.86em;
+	margin-top: -1em;
+	margin-left: -1px;
+	padding: 0.2em 0.2em 0.2em 1.2em;
+	border: 1px solid #aaa;
+	border-radius: 3px;
+	box-sizing: content-box;
+	color: #666;
+	transition: all 0.3s;
+}
+a.empty-text:hover:before
+{
+	content: "Empty text";
+	padding-left: 1.4em;
+}
+a.empty-title:hover:before
+{
+	content: "Empty title";
+	padding-left: 1.4em;
+}
+a.empty-href:hover:before
+{
+	content: "Empty href";
+	padding-left: 1.4em;
+}
+a.invalid-href:hover:before
+{
+	content: "Invalid href";
+	padding-left: 1.4em;
+}
+a a:hover:before,
+a template-a:hover:before,
+template-a a:hover:before,
+template-a template-a:hover:before {
+	content: "Nested anchor";
+	padding-left: 1.4em;
+}
+
+
+ol,ul,dl
+{
+	/* IE7: reset rtl list margin. (#7334) */
+	*margin-right: 0px;
+	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
+	padding: 0 40px;
+}
+
+h1,h2,h3,h4,h5,h6
+{
+	font-weight: normal;
+	line-height: 1.2;
+}
+
+hr
+{
+	border: 0px;
+	border-top: 1px solid #ccc;
+}
+
+img.right
+{
+	border: 1px solid #ccc;
+	float: right;
+	margin-left: 15px;
+	padding: 5px;
+}
+
+img.left
+{
+	border: 1px solid #ccc;
+	float: left;
+	margin-right: 15px;
+	padding: 5px;
+}
+
+pre
+{
+	white-space: pre-wrap; /* CSS 2.1 */
+	word-wrap: break-word; /* IE7 */
+	-moz-tab-size: 4;
+	tab-size: 4;
+}
+
+.marker
+{
+	background-color: Yellow;
+}
+
+span[lang]
+{
+	font-style: italic;
+}
+
+figure
+{
+	text-align: center;
+	border: solid 1px #ccc;
+	border-radius: 2px;
+	background: rgba(0,0,0,0.05);
+	padding: 10px;
+	margin: 10px 20px;
+	display: inline-block;
+}
+
+figure > figcaption
+{
+	text-align: center;
+	display: block; /* For IE8 */
+}
+
+a > img {
+	padding: 1px;
+	margin: 1px;
+	border: none;
+	outline: 1px solid #0782C1;
+}
+
+/* Widget Styles */
+.code-featured
+{
+	border: 5px solid red;
+}
+
+.math-featured
+{
+	padding: 20px;
+	box-shadow: 0 0 2px rgba(200, 0, 0, 1);
+	background-color: rgba(255, 0, 0, 0.05);
+	margin: 10px;
+}
+
+.image-clean
+{
+	border: 0;
+	background: none;
+	padding: 0;
+}
+
+.image-clean > figcaption
+{
+	font-size: .9em;
+	text-align: right;
+}
+
+.image-grayscale
+{
+	background-color: white;
+	color: #666;
+}
+
+.image-grayscale img, img.image-grayscale
+{
+	filter: grayscale(100%);
+}
+
+.embed-240p
+{
+	max-width: 426px;
+	max-height: 240px;
+	margin:0 auto;
+}
+
+.embed-360p
+{
+	max-width: 640px;
+	max-height: 360px;
+	margin:0 auto;
+}
+
+.embed-480p
+{
+	max-width: 854px;
+	max-height: 480px;
+	margin:0 auto;
+}
+
+.embed-720p
+{
+	max-width: 1280px;
+	max-height: 720px;
+	margin:0 auto;
+}
+
+.embed-1080p
+{
+	max-width: 1920px;
+	max-height: 1080px;
+	margin:0 auto;
+}

@@ -1,0 +1,146 @@
+@charset "UTF-8";
+.datetimePicker__widget,
+.datetimePicker__widget * {
+    box-sizing: border-box;
+}
+.datetimePicker__widget {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    border: 1px solid #ccc;
+}
+.datetimePicker__widget {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.datetimePicker__widget table {
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+.datetimePicker__widget td {
+    cursor: default;
+    border: none;
+    padding: 0;
+}
+.datetimePicker__widget td.datetimePicker__submit-cell span,
+.datetimePicker__widget td.datetimePicker__reset-cell span,
+.datetimePicker__widget td.datetimePicker__set2now-cell span,
+.datetimePicker__widget td.datetimePicker__date-cell span {
+    cursor: pointer;
+    display: inline-block;
+}
+.datetimePicker__widget td.datetimePicker__submit-cell span:hover,
+.datetimePicker__widget td.datetimePicker__reset-cell span:hover,
+.datetimePicker__widget td.datetimePicker__set2now-cell span:hover,
+.datetimePicker__widget td.datetimePicker__date-cell span:hover {
+    background: #eee;
+}
+.datetimePicker__widget {
+    text-align: center;
+}
+.datetimePicker__widget .datetimePicker__date-block {
+    text-align: right;
+}
+.datetimePicker__widget td.datetimePicker__date-cell {
+    opacity: 0.3;
+}
+.datetimePicker__widget span {
+    display: inline-block;
+}
+.datetimePicker__widget td.datetimePicker__date-cell[data-current-month="true"] {
+    opacity: 1;
+}
+.datetimePicker__widget td.datetimePicker__date-cell[data-current-date="true"] span {
+    background: #ddd;
+}
+.datetimePicker__widget td.datetimePicker__date-cell[data-today="true"] {
+    color: #f40;
+}
+.datetimePicker__widget .datetimePicker__submit-cell span:before,
+.datetimePicker__widget .datetimePicker__reset-cell span:before,
+.datetimePicker__widget .datetimePicker__set2now-cell span:before {
+    content: "Hiện tại";
+    color: #aaa;
+    font-size: 0.8em;
+    text-transform: uppercase;
+}
+.datetimePicker__widget .datetimePicker__reset-cell span:before {
+    content: "Ban đầu";
+}
+.datetimePicker__widget .datetimePicker__submit-cell span:before {
+    content: "Xong";
+    color: #06c;
+}
+.datetimePicker__widget .datetimePicker__increase-div span,
+.datetimePicker__widget .datetimePicker__decrease-div span {
+    width: 1.5em;
+    height: 1.2em;
+}
+.datetimePicker__widget .datetimePicker__increase-div span {
+    vertical-align: bottom;
+}
+.datetimePicker__widget .datetimePicker__decrease-div span {
+    vertical-align: top;
+}
+.datetimePicker__widget .datetimePicker__increase-div span:hover,
+.datetimePicker__widget .datetimePicker__decrease-div span:hover {
+    background: #eee;
+}
+.datetimePicker__widget .datetimePicker__increase-div span:before,
+.datetimePicker__widget .datetimePicker__decrease-div span:before {
+    color: #aaa;
+    font-size: 0.8em;
+}
+.datetimePicker__widget .datetimePicker__increase-div span:before,
+.datetimePicker__widget .datetimePicker__decrease-div span:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 30%;
+}
+.datetimePicker__widget .datetimePicker__increase-div span:before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http:%2F%2Fwww.w3.org%2F2000%2Fsvg" width="452" height="452" viewBox="0 0 451.8 451.8"><path fill="%2368b" d="M248.3 106.4l194.3 194.3c12.4 12.4 12.4 32.4 0 44.7 -12.4 12.4-32.4 12.4-44.7 0L225.9 173.5 54 345.4c-12.4 12.4-32.4 12.4-44.7 0 -12.4-12.4-12.4-32.4 0-44.7L203.6 106.4c6.2-6.2 14.3-9.3 22.4-9.3C234 97.1 242.1 100.2 248.3 106.4z"%2F><%2Fsvg>');
+}
+.datetimePicker__widget .datetimePicker__decrease-div span:before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http:%2F%2Fwww.w3.org%2F2000%2Fsvg" width="452" height="452" viewBox="0 0 451.8 451.8"><path fill="%23b86" d="M225.9 354.7c-8.1 0-16.2-3.1-22.4-9.3L9.3 151.2c-12.4-12.4-12.4-32.4 0-44.8 12.4-12.4 32.4-12.4 44.7 0l171.9 171.9 171.9-171.9c12.4-12.4 32.4-12.4 44.7 0 12.4 12.4 12.4 32.4 0 44.8L248.3 345.4C242.1 351.6 234 354.7 225.9 354.7z"%2F><%2Fsvg>');
+}
+.datetimePicker__widget .datetimePicker__weekday-cell {
+    color: #888;
+    background: #f8f8f8;
+}
+.datetimePicker__widget .datetimePicker__time-row td span:after {
+    color: #666;
+    font-size: 0.9em;
+}
+.datetimePicker__widget .datetimePicker__hours-cell .datetimePicker__value-div span:after {
+    content: " giờ";
+}
+.datetimePicker__widget .datetimePicker__minutes-cell .datetimePicker__value-div span:after {
+    content: " phút";
+}
+.datetimePicker__widget .datetimePicker__seconds-cell .datetimePicker__value-div span:after {
+    content: " giây";
+}
+.datetimePicker__widget .datetimePicker__year-cell .datetimePicker__value-div span:before {
+    content: "Năm ";
+    font-size: 0.9em;
+}
+.datetimePicker__widget .datetimePicker__month-cell .datetimePicker__value-div span:before {
+    content: "Tháng ";
+    font-size: 0.9em;
+}
+.datetimePicker__widget .datetimePicker__weekday-cell span,
+.datetimePicker__widget .datetimePicker__set2now-cell span,
+.datetimePicker__widget .datetimePicker__reset-cell span,
+.datetimePicker__widget .datetimePicker__submit-cell span,
+.datetimePicker__widget .datetimePicker__date-cell span {
+    padding: 0.1em 0.5em;
+    display: block;
+    width: 100%;
+}
+.datetimePicker__widget table {
+    width: 100%;
+}

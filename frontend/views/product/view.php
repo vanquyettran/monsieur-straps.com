@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => $model->view
 
 $order_button = function ($text = null) {
     if ($text === null) {
-        $text = 'Đặt hàng';
+        $text = 'Order';
     }
     return '<button type="button" class="order-button" onclick="popupOrderForm(this)">' . $text . '</button>';
 };

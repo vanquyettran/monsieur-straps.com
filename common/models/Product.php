@@ -72,9 +72,9 @@ class Product extends \common\db\MyActiveRecord
     public function getProductionStatusLabels()
     {
         return [
-            self::PRODUCTION_STATUS__AVAILABLE => 'Sẵn hàng',
-            self::PRODUCTION_STATUS__PREORDER => 'Đặt hàng',
-            self::PRODUCTION_STATUS__SOLD_OUT => 'Hết hàng',
+            self::PRODUCTION_STATUS__AVAILABLE => 'Available',
+            self::PRODUCTION_STATUS__PREORDER => 'Pre-order',
+            self::PRODUCTION_STATUS__SOLD_OUT => 'Sold out',
         ];
     }
 
@@ -140,7 +140,7 @@ class Product extends \common\db\MyActiveRecord
 
     public function formatPrice($price)
     {
-        return number_format($price, 0, ',', '.') . 'đ';
+        return '$' . number_format($price, 2, '.', ',');
     }
 
     public function totalDiscountPercentage()

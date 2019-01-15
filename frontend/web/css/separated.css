@@ -65,7 +65,7 @@ html.has-header-banner #header .overlay {
 @media screen and (min-width: 781px) {
     #header .logo {
         display: block;
-        width: 10rem;
+        width: 13rem;
         padding: 1rem;
         margin: 1.5rem auto 1rem;
     }

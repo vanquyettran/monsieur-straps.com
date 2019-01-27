@@ -78,7 +78,7 @@ AppAsset::register($this);
                     ['label' => 'List', 'url' => ['/menu-item/index']],
                     ['label' => 'Create New', 'url' => ['/menu-item/create']],
                 ]],
-                ['label' => 'Static Page Info', 'items' => [
+                ['label' => 'SPI', 'items' => [
                     ['label' => 'List', 'url' => ['/static-page-info/index']],
                     ['label' => 'Create New', 'url' => ['/static-page-info/create']],
                 ]],

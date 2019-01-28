@@ -205,7 +205,7 @@ class Product extends \common\db\MyActiveRecord
             [['name', 'heading', 'page_title', 'meta_title', 'meta_description', 'description'], 'validateAllCaps'],
             [['slug', 'code'], 'unique'],
             ['slug', 'validateSlug'],
-            ['price', 'number', 'min' => 1000],
+            ['price', 'number', 'min' => 1],
             [['avatar_image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Image::className(), 'targetAttribute' => ['avatar_image_id' => 'id']],
             [['product_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductCategory::className(), 'targetAttribute' => ['product_category_id' => 'id']],
         ];

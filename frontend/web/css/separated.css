@@ -14,8 +14,11 @@ html:not(.has-header-banner) #header .overlay {
     display: block;
     width: 100%;
 }
-#header .logo svg {
+#header .logo svg .cls-1 {
     fill: #333;
+}
+#header .logo svg .cls-2 {
+    fill: #fff;
 }
 #header .open-search-button {
     display: block;
@@ -51,8 +54,11 @@ html:not(.has-header-banner) #header .open-search-button svg {
 #header .header-banner .image {
     background-color: transparent;
 }
-html.has-header-banner #header .logo svg {
+html.has-header-banner #header .logo svg .cls-1 {
     fill: #fff;
+}
+html.has-header-banner #header .logo svg .cls-2 {
+    fill: #333;
 }
 html.has-header-banner #header .overlay {
     position: absolute;
@@ -853,7 +859,12 @@ footer .logo svg,
 footer .logo img {
     display: block;
     width: 100%;
+}
+footer .logo svg .cls-1 {
     fill: #333;
+}
+footer .logo svg .cls-2 {
+    fill: #fff;
 }
 footer .title {
     white-space: nowrap;

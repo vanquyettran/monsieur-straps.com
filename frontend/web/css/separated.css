@@ -30,6 +30,17 @@ html:not(.has-header-banner) #header .overlay {
     width: 2.5rem;
     height: 2.5rem;
 }
+#header .shopping-cart-button {
+    display: block;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    right: 3.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
 html #header .open-search-button svg {
     display: block;
     position: absolute;
@@ -41,12 +52,28 @@ html #header .open-search-button svg {
     width: 20px;
     height: 20px;
 }
-html.has-header-banner #header .open-search-button svg {
-    fill: #fff;
+
+html #header .shopping-cart-button svg {
+    display: block;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 24px;
+    height: 20px;
 }
-html:not(.has-header-banner) #header .open-search-button svg {
-    fill: #333;
+
+html.has-header-banner #header .open-search-button,
+html.has-header-banner #header .shopping-cart-button {
+    color: #fff;
 }
+html:not(.has-header-banner) #header .open-search-button,
+html:not(.has-header-banner) #header .shopping-cart-button {
+    color: #333;
+}
+
 #header .header-banner {
     background-color: #666;
     overflow: hidden;
@@ -77,13 +104,10 @@ html.has-header-banner #header .overlay {
     }
 }
 @media screen and (max-width: 780px) {
-    /*#header {
-        min-height: 0;
-    }*/
     #header .logo {
         display: block;
         margin: auto;
-        width: calc(100% - 2 * 45px - 2 * 1rem);
+        width: calc(100% + 2 * 0.5rem - 2 * 2 * 25px - 2 * 2 * 1.5rem);
         height: calc(45px + 1.5rem);
         padding: 0.5rem;
     }
@@ -266,9 +290,13 @@ html.has-header-banner #header .overlay {
     html:not(.has-header-banner) #top-nav .menu-toggle svg {
         fill: #333;
     }
-    #header .open-search-button {
-        width: calc(45px + 1.5rem);
+    #header .open-search-button,
+    #header .shopping-cart-button {
+        width: calc(25px + 1.5rem);
         height: calc(45px + 1.5rem);
+    }
+    #header .shopping-cart-button {
+        right: calc(25px + 1.5rem);
     }
     html.menu-active #top-nav .menu {
         display: block;

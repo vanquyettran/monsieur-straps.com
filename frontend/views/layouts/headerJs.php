@@ -635,3 +635,32 @@ use yii\helpers\Url;
         };
     }(window);
 </script>
+
+<script>
+    var cacheDuration = 3 * 86400 * 1000;
+
+    function getCacheData(key, defVal) {
+        var cacheDataString = localStorage.getItem(key);
+        if (cacheDataString) {
+            var cacheData = JSON.parse(cacheDataString);
+            var time = cacheData.time;
+            var now = new Date().getTime();
+            if (now - time - cacheDuration > 0) {
+                localStorage.removeItem(key);
+            } else {
+                return cacheData.value;
+            }
+        }
+
+        return defVal;
+    }
+
+    function setCacheData(key, value) {
+        var cacheData = {
+            time: new Date().getTime(),
+            value: value
+        };
+        var cacheDataString = JSON.stringify(cacheData);
+        localStorage.setItem(key, cacheDataString);
+    }
+</script>

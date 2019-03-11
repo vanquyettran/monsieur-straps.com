@@ -416,10 +416,25 @@ $replaceActionItems = function ($content) use ($preg_pattern, $preg_callback) {
     };
 
     function addToCart() {
-        var shoppingCart = getCacheData('shoppingCart', []);
+        var shoppingCartItems = getCacheData('shoppingCartItems', []);
 
-        setCacheData('shoppingCart', getCacheData('shoppingCart', []).concat([ product ]));
-        console.log(getCacheData('shoppingCart', []));
+        var alreadyAdded = false;
+        shoppingCartItems.forEach(function (item) {
+            if (item.id === product.id) {
+                item.quantity++;
+                alreadyAdded = true;
+            }
+        });
+
+        if (!alreadyAdded) {
+            shoppingCartItems.push(product);
+        }
+
+        setCacheData('shoppingCartItems', shoppingCartItems);
+        refreshCartCounter();
+        setCartDropdownActivity(true);
+        scrollToTop();
+        console.log(getCacheData('shoppingCartItems', []));
     }
 
 </script>

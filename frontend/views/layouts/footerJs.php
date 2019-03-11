@@ -365,3 +365,31 @@
         searchInput.focus();
     }
 </script>
+
+<script>
+    function refreshCartCounter() {
+        var cartCounter = document.getElementById('cart-counter');
+        var cartItems = getCacheData('shoppingCartItems', []);
+
+        cartCounter.innerHTML = cartItems.reduce(function (sum, item) {
+            return sum + item.quantity;
+        }, 0);
+    }
+
+    refreshCartCounter();
+
+    function setCartDropdownActivity(active) {
+        var cartDropdown = document.getElementById('cart-dropdown');
+        if (active) {
+            cartDropdown.classList.add('active');
+        } else {
+            cartDropdown.classList.remove('active');
+        }
+    }
+
+
+    
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+</script>

@@ -41,7 +41,7 @@ html:not(.has-header-banner) #header .overlay {
     height: 2.5rem;
 }
 
-html #header .open-search-button svg {
+#header .open-search-button svg {
     display: block;
     position: absolute;
     margin: auto;
@@ -53,7 +53,7 @@ html #header .open-search-button svg {
     height: 20px;
 }
 
-html #header .shopping-cart-button svg {
+#header .shopping-cart-button svg {
     display: block;
     position: absolute;
     margin: auto;
@@ -63,6 +63,49 @@ html #header .shopping-cart-button svg {
     right: 0;
     width: 24px;
     height: 20px;
+}
+
+#header .shopping-cart-button .counter-area {
+    display: block;
+    position: absolute;
+    top: -0.9rem;
+    left: 0.4rem;
+    right: 0;
+    margin: auto;
+    text-align: center;
+}
+#header .shopping-cart-button .counter-area .count {
+    font-size: 0.75rem;
+    background: #F7B223;
+    color: #fff;
+    display: inline-block;
+    line-height: 1.3rem;
+    height: 1.3rem;
+    min-width: 1.3rem;
+    text-align: center;
+    border-radius: 100%;
+}
+#header .shopping-cart-button .counter-area .count:empty {
+    display: none;
+}
+#header .shopping-cart-button .dropdown {
+    background: #fff;
+    padding: 1rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    position: absolute;
+    right: 0;
+    top: 100%;
+}
+#header .shopping-cart-button .dropdown:not(.active) {
+    display: none;
+}
+#header .shopping-cart-button .dropdown .link-to-cart {
+    background: #F7B223;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    display: block;
+    white-space: nowrap;
 }
 
 html.has-header-banner #header .open-search-button,
@@ -297,6 +340,9 @@ html.has-header-banner #header .overlay {
     }
     #header .shopping-cart-button {
         right: calc(25px + 1.5rem);
+    }
+    #header .shopping-cart-button .counter-area {
+        top: 0.2rem;
     }
     html.menu-active #top-nav .menu {
         display: block;

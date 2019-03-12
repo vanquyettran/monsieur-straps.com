@@ -97,7 +97,7 @@ html:not(.has-header-banner) #header .overlay {
     right: 0;
     top: 100%;
 }
-#header .shopping-cart-button .dropdown:not(.active) {
+#header .shopping-cart-button:not(.active) .dropdown {
     display: none;
 }
 #header .shopping-cart-button .dropdown .link-to-cart {
@@ -1290,7 +1290,6 @@ footer .socials a:hover {
     }
 }
 
-
 /**
  * PRODUCT DESC
  */
@@ -2212,4 +2211,17 @@ html.has-popup body {
 
 .search-wrapper .result-container .alert-block {
     margin-top: 2rem;
+}
+
+
+
+/**
+ * SHOPPING CART VIEW
+ */
+.shopping-cart-view {
+    margin-top: 2rem;
+}
+.shopping-cart-view .cart-title {
+    font-weight: normal;
+    font-size: 1.2em;
 }

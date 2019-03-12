@@ -432,7 +432,7 @@ $replaceActionItems = function ($content) use ($preg_pattern, $preg_callback) {
 
         setCacheData('shoppingCartItems', shoppingCartItems);
         refreshCartCounter();
-        setCartDropdownActivity(true);
+        setCartButtonActivity(true);
         scrollToTop();
         console.log(getCacheData('shoppingCartItems', []));
     }

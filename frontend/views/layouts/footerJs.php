@@ -368,7 +368,7 @@
 
 <script>
     function refreshCartCounter() {
-        var cartCounter = document.getElementById('cart-counter');
+        var cartCounter = document.querySelector('#shopping-cart-button .count');
         var cartItems = getCacheData('shoppingCartItems', []);
 
         cartCounter.innerHTML = cartItems.reduce(function (sum, item) {
@@ -378,12 +378,12 @@
 
     refreshCartCounter();
 
-    function setCartDropdownActivity(active) {
-        var cartDropdown = document.getElementById('cart-dropdown');
+    function setCartButtonActivity(active) {
+        var cartButton = document.querySelector('#shopping-cart-button');
         if (active) {
-            cartDropdown.classList.add('active');
+            cartButton.classList.add('active');
         } else {
-            cartDropdown.classList.remove('active');
+            cartButton.classList.remove('active');
         }
     }
 

@@ -412,6 +412,16 @@ use yii\helpers\Url;
         return formatNumber(number, 0, '.', ',') + 'đ';
     };
 
+    /**
+     * @param {number} number
+     * @return {string}
+     */
+    formatUsd = function (number) {
+        return '$' + formatNumber(number, 0, ',', '.') + '.00';
+    };
+
+
+
 </script>
 
 <script>

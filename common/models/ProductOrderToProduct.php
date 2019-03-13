@@ -14,6 +14,7 @@ use Yii;
  * @property string $product_name
  * @property int $product_price
  * @property int $product_discounted_price
+ * @property int $product_customizing
  *
  * @property Product $product
  * @property ProductOrder $productOrder
@@ -37,6 +38,7 @@ class ProductOrderToProduct extends \common\db\MyActiveRecord
             [['product_order_id', 'product_id', 'product_quantity', 'product_code', 'product_name', 'product_price', 'product_discounted_price'], 'required'],
             [['product_order_id', 'product_id', 'product_quantity', 'product_price', 'product_discounted_price'], 'integer'],
             [['product_code', 'product_name'], 'string', 'max' => 255],
+            [['product_customizing'], 'string', 'max' => 1023],
             [['product_order_id', 'product_id'], 'unique', 'targetAttribute' => ['product_order_id', 'product_id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
             [['product_order_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductOrder::className(), 'targetAttribute' => ['product_order_id' => 'id']],

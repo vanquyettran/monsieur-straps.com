@@ -20,44 +20,12 @@ if ($model->productCategory) {
 }
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => $model->viewUrl()];
 
-// Embedding variables
-
 $order_button = function ($text = null) {
     if ($text === null) {
         $text = 'Add to cart';
     }
     return '<button type="button" class="order-button" onclick="addToCart(this)">' . $text . '</button>';
 };
-
-$hotline = '';
-$hotline_param = SiteParam::findOneByName(SiteParam::PHONE);
-if ($hotline_param !== null) {
-    $hotline = $hotline_param->value;
-}
-
-$hotline_button = function ($text = null) use ($hotline) {
-    if ($text === null) {
-        $text = $hotline;
-    } else {
-        $text = str_replace('*hotline*', $hotline, $text);
-    }
-
-    return '<a class="hotline-button" href="tel:' . $hotline . '">' . $text . '</a>';
-};
-
-$hotline_text = function ($text = null) use ($hotline) {
-    if ($text === null) {
-        $text = $hotline;
-    } else {
-        $text = str_replace('*hotline*', $hotline, $text);
-    }
-
-    return '<a class="hotline" href="tel:' . $hotline . '">' . $text . '</a>';
-};
-
-$fb_chat_button = function () {};
-
-$zalo_chat_button = function () {};
 
 $product_attr = function ($attr = null) use ($model) {
     if ($attr === null || !$model->hasAttribute($attr)) {
@@ -76,16 +44,14 @@ $product_get = function ($val_name = null) use ($model) {
 };
 
 $product_options = function () {
-    return '<table class="product-options-table"></table>';
+    return '<table class="product-options-table"></table><div class="order-error-msg"></div>';
 };
 
 $preg_callback = function ($matches) use (
     $product_attr,
     $product_options,
     $product_get,
-    $order_button,
-    $hotline_button,
-    $hotline_text
+    $order_button
 ) {
     $parts = explode('|', $matches[1], 2);
 
@@ -100,8 +66,6 @@ $preg_callback = function ($matches) use (
         case 'product_options': return $product_options();
         case 'product_get': return $product_get($parts[1]);
         case 'order_button': return $order_button($parts[1]);
-        case 'hotline_button': return $hotline_button($parts[1]);
-        case 'hotline_text': return $hotline_text($parts[1]);
         default: return $matches[0];
     }
 };
@@ -408,16 +372,40 @@ $replaceActionItems = function ($content) use ($preg_pattern, $preg_callback) {
     var product = {
         id: <?= json_encode($model->id) ?>,
         avatar: <?= json_encode($model->avatarImage ? $model->avatarImage->getImgSrc() : '') ?>,
-        url: <?= $model->viewUrl() ?>,
+        url: <?= json_encode($model->viewUrl()) ?>,
         name: <?= json_encode($model->name) ?>,
         code: <?= json_encode($model->code) ?>,
         price: <?= json_encode($model->price) ?>,
-        discountedPrice: <?= json_encode($model->discountedPrice()) ?>,
-        quantity: 1
+        discountedPrice: <?= json_encode($model->discountedPrice()) ?>
     };
 
-    function addToCart() {
+    function addToCart(button) {
         var shoppingCartItems = getCacheData('shoppingCartItems', []);
+
+        var errorFields = [];
+        var groupName;
+        for (groupName in groupSelectedOptionIds) {
+            if (groupSelectedOptionIds.hasOwnProperty(groupName)) {
+                if (!groupSelectedOptionIds[groupName]) {
+                    errorFields.push(groupName);
+                }
+            }
+        }
+
+        var errorEls = document.querySelectorAll('.order-error-msg');
+
+        if (errorFields.length > 0) {
+            [].forEach.call(errorEls, function (el) {
+                el.innerHTML = 'Please choose: ' + errorFields.join(', ');
+                el.classList.remove('hidden');
+            });
+            return;
+        }
+
+        [].forEach.call(errorEls, function (el) {
+            el.innerHTML = '';
+            el.classList.add('hidden');
+        });
 
         var alreadyAdded = false;
         shoppingCartItems.forEach(function (item) {
@@ -428,14 +416,30 @@ $replaceActionItems = function ($content) use ($preg_pattern, $preg_callback) {
         });
 
         if (!alreadyAdded) {
+            product.quantity = 1;
             shoppingCartItems.push(product);
         }
+
+        shoppingCartItems.forEach(function (item) {
+            if (item.id === product.id) {
+                var customizing = {};
+                for (groupName in groupSelectedOptionIds) {
+                    if (groupSelectedOptionIds.hasOwnProperty(groupName)) {
+                        var optionId = groupSelectedOptionIds[groupName];
+                        customizing[groupName] = groupOptions[groupName][optionId];
+                    }
+                }
+                item.customizing = customizing;
+            }
+        });
+
+        console.log(getCacheData('shoppingCartItems', []));
 
         setCacheData('shoppingCartItems', shoppingCartItems);
         refreshCartCounter();
         setCartButtonActivity(true);
         scrollToTop();
-        console.log(getCacheData('shoppingCartItems', []));
+
     }
 
 </script>

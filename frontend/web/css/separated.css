@@ -1911,6 +1911,9 @@ footer .socials a:hover {
 .product-view .details .product-options-table {
     width: 100%;
 }
+.order-error-msg {
+    color: #FF0000;
+}
 
 @media screen and (max-width: 780px) {
     .product-view .order-button {
@@ -2246,10 +2249,9 @@ html.has-popup body {
 .shopping-cart-view table tr td:not(:first-child) {
     border-left: 1px solid #ddd;
 }
-.shopping-cart-view table td img {
+.shopping-cart-view table td .image {
     display: block;
-    max-width: 90px;
-    max-height: 60px;
+    width: 90px;
 }
 .shopping-cart-view table td a {
     color: #00a8c6;
@@ -2257,17 +2259,34 @@ html.has-popup body {
 .shopping-cart-view table td a:hover {
     text-decoration: underline;
 }
+.shopping-cart-view table ul li {
+    list-style: none;
+    font-size: 0.9em;
+    font-style: italic;
+}
 
 /**
- * PAYMENT VIEW
+ * CONTACT VIEW
  */
-.payment-view {
+.contact-view {
     margin-top: 2rem;
 }
-.payment-view > :not(:first-child) {
+.contact-view > :not(:first-child) {
     margin-top: 1.5rem;
 }
-.payment-view .title {
+.contact-view .title {
     font-weight: normal;
     font-size: 1.3em;
+}
+.contact-view form .field-group:not(:first-child) {
+    margin-top: 1rem;
+}
+.contact-view form .field-group .field-name {
+    font-weight: bold;
+}
+.contact-view form .field-group input,
+.contact-view form .field-group select {
+    width: 100%;
+    max-width: 300px;
+    height: 2rem;
 }

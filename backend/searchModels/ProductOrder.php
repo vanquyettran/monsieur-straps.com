@@ -18,7 +18,7 @@ class ProductOrder extends ProductOrderModel
     public function rules()
     {
         return [
-            [['id', 'total_value', 'delivery_fee', 'customer_place_t1_id', 'customer_place_t2_id', 'customer_place_t3_id', 'status', 'updated_user_id'], 'integer'],
+            [['id', 'total_value', 'delivery_fee', 'status', 'updated_user_id'], 'integer'],
             [['customer_name', 'customer_phone', 'customer_email', 'customer_address', 'created_time', 'updated_time', 'user_note'], 'safe'],
         ];
     }
@@ -67,9 +67,6 @@ class ProductOrder extends ProductOrderModel
             'id' => $this->id,
             'total_value' => $this->total_value,
             'delivery_fee' => $this->delivery_fee,
-            'customer_place_t1_id' => $this->customer_place_t1_id,
-            'customer_place_t2_id' => $this->customer_place_t2_id,
-            'customer_place_t3_id' => $this->customer_place_t3_id,
             'status' => $this->status,
             'created_time' => $this->created_time,
             'updated_time' => $this->updated_time,

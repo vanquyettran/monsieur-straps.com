@@ -16,18 +16,17 @@ use yii\behaviors\TimestampBehavior;
  * @property string $customer_phone
  * @property string $customer_email
  * @property string $customer_address
- * @property int $customer_place_t1_id
- * @property int $customer_place_t2_id
- * @property int $customer_place_t3_id
+ * @property string $customer_address_2
+ * @property string $customer_country
+ * @property string $customer_province
+ * @property string $customer_city
+ * @property string $customer_postal_code
  * @property int $status
  * @property string $created_time
  * @property string $updated_time
  * @property int $updated_user_id
  * @property string $user_note
  *
- * @property PlaceT1 $customerPlaceT1
- * @property PlaceT2 $customerPlaceT2
- * @property PlaceT3 $customerPlaceT3
  * @property User $updatedUser
  * @property ProductOrderToProduct[] $productOrderToProducts
  * @property Product[] $products
@@ -99,13 +98,10 @@ class ProductOrder extends \common\db\MyActiveRecord
     public function rules()
     {
         return [
-            [['total_value', 'delivery_fee', 'customer_name', 'customer_phone', 'customer_address', 'status'], 'required'],
-            [['total_value', 'delivery_fee', 'customer_place_t1_id', 'customer_place_t2_id', 'customer_place_t3_id', 'status', 'updated_user_id'], 'integer'],
-            [['customer_name', 'customer_phone', 'customer_email', 'customer_address'], 'string', 'max' => 255],
+            [['total_value', 'delivery_fee', 'customer_name', 'customer_phone', 'customer_email', 'customer_address', 'customer_country', 'customer_province', 'customer_city', 'customer_postal_code', 'status'], 'required'],
+            [['total_value', 'delivery_fee', 'status', 'updated_user_id'], 'integer'],
+            [['customer_name', 'customer_phone', 'customer_email', 'customer_address', 'customer_address_2', 'customer_country', 'customer_province', 'customer_city', 'customer_postal_code'], 'string', 'max' => 255],
             [['user_note'], 'string', 'max' => 2047],
-            [['customer_place_t1_id'], 'exist', 'skipOnError' => true, 'targetClass' => PlaceT1::className(), 'targetAttribute' => ['customer_place_t1_id' => 'id']],
-            [['customer_place_t2_id'], 'exist', 'skipOnError' => true, 'targetClass' => PlaceT2::className(), 'targetAttribute' => ['customer_place_t2_id' => 'id']],
-            [['customer_place_t3_id'], 'exist', 'skipOnError' => true, 'targetClass' => PlaceT3::className(), 'targetAttribute' => ['customer_place_t3_id' => 'id']],
             [['updated_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_user_id' => 'id']],
         ];
     }
@@ -132,30 +128,6 @@ class ProductOrder extends \common\db\MyActiveRecord
             'updated_user_id' => 'Updated User ID',
             'user_note' => 'User Note',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCustomerPlaceT1()
-    {
-        return $this->hasOne(PlaceT1::className(), ['id' => 'customer_place_t1_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCustomerPlaceT2()
-    {
-        return $this->hasOne(PlaceT2::className(), ['id' => 'customer_place_t2_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCustomerPlaceT3()
-    {
-        return $this->hasOne(PlaceT3::className(), ['id' => 'customer_place_t3_id']);
     }
 
     /**

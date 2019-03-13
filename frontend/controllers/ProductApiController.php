@@ -44,10 +44,12 @@ class ProductApiController extends Controller
             $model->customer_name = $customer['name'];
             $model->customer_phone = $customer['phone'];
             $model->customer_email = $customer['email'];
-            $model->customer_address = $customer['address'] ? $customer['address'] : 'Not_Provided';
-            $model->customer_place_t1_id = $customer['placeT1'] ? $customer['placeT1'] : null;
-            $model->customer_place_t2_id = $customer['placeT2'] ? $customer['placeT2'] : null;
-            $model->customer_place_t3_id = $customer['placeT3'] ? $customer['placeT3'] : null;
+            $model->customer_address = $customer['address'];
+            $model->customer_address_2 = $customer['address_2'];
+            $model->customer_country = $customer['country'];
+            $model->customer_province = $customer['province'];
+            $model->customer_city = $customer['city'];
+            $model->customer_postal_code = $customer['postal_code'];
             // Order
             $model->delivery_fee = $order['deliveryFee'];
             $model->total_value = $order['totalValue'];
@@ -64,6 +66,10 @@ class ProductApiController extends Controller
                     $junction->product_price = $product['price'];
                     $junction->product_discounted_price = $product['discountedPrice'];
                     $junction->product_quantity = $product['quantity'];
+                    $junction->product_customizing = json_encode($product['customizing'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+                    if ($junction->product_customizing === '[]') {
+                        $junction->product_customizing = '{}';
+                    }
 
                     if ($junction->save()) {
                         $junctionAttributesList[] = $junction->attributes;

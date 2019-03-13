@@ -36,6 +36,7 @@ use yii\widgets\DetailView;
         <th>ID</th>
         <th>Code</th>
         <th>Name</th>
+        <th>Customizing</th>
         <th>Price (VND)</th>
         <th>Final Price (VND)</th>
         <th>Quantity</th>
@@ -52,6 +53,7 @@ use yii\widgets\DetailView;
             <td><?= $item->product_id ?></td>
             <td><?= $item->product_code ?></td>
             <td><?= $item->product_name ?></td>
+            <td><?= $item->product_customizing ?></td>
             <td><?= number_format($item->product_price) ?></td>
             <td><?= number_format($item->product_discounted_price) ?></td>
             <td><?= number_format($item->product_quantity) ?></td>
@@ -95,6 +97,11 @@ use yii\widgets\DetailView;
         'customer_phone',
         'customer_email:email',
         'customer_address',
+        'customer_address_2',
+        'customer_country',
+        'customer_province',
+        'customer_city',
+        'customer_postal_code',
         'created_time',
         'updated_time',
         'updatedUser.username',

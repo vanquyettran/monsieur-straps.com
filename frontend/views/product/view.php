@@ -408,6 +408,7 @@ $replaceActionItems = function ($content) use ($preg_pattern, $preg_callback) {
     var product = {
         id: <?= json_encode($model->id) ?>,
         avatar: <?= json_encode($model->avatarImage ? $model->avatarImage->getImgSrc() : '') ?>,
+        url: <?= $model->viewUrl() ?>,
         name: <?= json_encode($model->name) ?>,
         code: <?= json_encode($model->code) ?>,
         price: <?= json_encode($model->price) ?>,

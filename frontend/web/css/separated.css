@@ -2221,7 +2221,53 @@ html.has-popup body {
 .shopping-cart-view {
     margin-top: 2rem;
 }
-.shopping-cart-view .cart-title {
+.shopping-cart-view > :not(:first-child) {
+    margin-top: 1.2rem;
+}
+.shopping-cart-view .title {
     font-weight: normal;
-    font-size: 1.2em;
+    font-size: 1.3em;
+}
+.shopping-cart-view table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+.shopping-cart-view table td {
+    padding: 1rem;
+}
+.shopping-cart-view table thead td {
+    background: #eee;
+}
+.shopping-cart-view table tbody tr td,
+.shopping-cart-view table tfoot tr td {
+    border-top: 1px solid #ddd;
+}
+.shopping-cart-view table tr td:not(:first-child) {
+    border-left: 1px solid #ddd;
+}
+.shopping-cart-view table td img {
+    display: block;
+    max-width: 90px;
+    max-height: 60px;
+}
+.shopping-cart-view table td a {
+    color: #00a8c6;
+}
+.shopping-cart-view table td a:hover {
+    text-decoration: underline;
+}
+
+/**
+ * PAYMENT VIEW
+ */
+.payment-view {
+    margin-top: 2rem;
+}
+.payment-view > :not(:first-child) {
+    margin-top: 1.5rem;
+}
+.payment-view .title {
+    font-weight: normal;
+    font-size: 1.3em;
 }

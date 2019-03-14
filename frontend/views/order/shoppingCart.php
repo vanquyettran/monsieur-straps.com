@@ -83,6 +83,7 @@
             </form>
         </div>
         <div>
+            <!-- https://developer.paypal.com/docs/classic/paypal-payments-standard/integration-guide/cart_upload/# -->
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_cart">
                 <input type="hidden" name="business" value="5Y8HZYMY7KUSW">

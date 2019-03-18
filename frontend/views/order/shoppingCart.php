@@ -253,7 +253,9 @@
                     "amount": {
 //                        "currency": "USD",
 //                        "details": {"subtotal": 300, "shipping": 20, "tax": 30},
-                        "value": 350,
+                        "value": getCacheData('shoppingCartItems', []).reduce(function (amount, item) {
+                            return amount + item.quantity * item.discountedPrice;
+                        }, 0),
                         "currency_code": "USD"
                     }
 //                    ,

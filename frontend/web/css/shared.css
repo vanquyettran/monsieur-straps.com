@@ -346,6 +346,10 @@ i.icon {
     border-bottom: none;
 }
 
+.hidden {
+    display: none !important;
+}
+
 @media screen and (min-width: 781px) {
     .lg-hidden {
         display: none !important;

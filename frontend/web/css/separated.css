@@ -2294,8 +2294,16 @@ html.has-popup body {
 /**
  * PAYPAL BUTTON
  */
-.paypal-button-container {
-    width: 250px;
-    margin-top: 1rem;
-    float: right;
+.payment-view {
+    margin-top: 2rem;
+}
+.payment-view > :not(:first-child) {
+    margin-top: 1.5rem;
+}
+.payment-view .title {
+    font-weight: normal;
+    font-size: 1.3em;
+}
+.payment-view .paypal-button-container {
+    width: 200px;
 }

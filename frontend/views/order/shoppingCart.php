@@ -14,7 +14,10 @@
                 <!-- filled by JS -->
             </table>
         </div>
-        <div id="paypal-button-container" class="paypal-button-container"></div>
+        <div id="payment-view" class="payment-view hidden">
+            <div class="title">Checkout with Paypal</div>
+            <div class="paypal-button-container"></div>
+        </div>
         <!--<div class="contact-view">
             <div class="title">Contact</div>
             <form>
@@ -164,8 +167,6 @@
 
     fillUpShoppingCartView();
 
-    initPaypalButton();
-
 //    document.querySelector('[name="amount"]').value = getCacheData('shoppingCartItems', []).reduce(function (amount, item) {
 //        return amount + item.quantity * item.discountedPrice;
 //    }, 0);
@@ -251,6 +252,9 @@
             return;
         }
 
+        var paymentView = document.querySelector('#payment-view');
+        paymentView.classList.remove('hidden');
+
         paypal.Buttons({
             createOrder: function(data, actions) {
                 return actions.order.create({
@@ -299,6 +303,8 @@
             onError: function (err) {
 
             }
-        }).render('#paypal-button-container');
+        }).render('#payment-view .paypal-button-container');
     }
+
+    initPaypalButton();
 </script>

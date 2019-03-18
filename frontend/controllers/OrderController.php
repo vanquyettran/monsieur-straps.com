@@ -9,9 +9,13 @@
 namespace frontend\controllers;
 
 
+use PayPalCheckoutSdk\Orders\OrdersGetRequest;
+use Sample\PayPalClient;
+
 class OrderController extends BaseController
 {
     public function actionShoppingCart() {
         return $this->render('shoppingCart');
     }
+
 }

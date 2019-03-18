@@ -12,6 +12,8 @@ namespace frontend\controllers;
 use backend\models\ProductOrderToProduct;
 use common\models\ProductContact;
 use common\models\ProductOrder;
+use PayPalCheckoutSdk\Orders\OrdersGetRequest;
+use Sample\PayPalClient;
 use yii\rest\Controller;
 use yii\web\BadRequestHttpException;
 
@@ -109,5 +111,12 @@ class ProductApiController extends Controller
         } else {
             return $contact->errors;
         }
+    }
+
+    public function actionPaypalTransactionComplete() {
+        $orderId = \Yii::$app->request->post('orderId');
+        $client = PayPalClient::client();
+        $res = $client->execute(new OrdersGetRequest($orderId));
+        echo json_encode($res->result, JSON_PRETTY_PRINT);
     }
 }

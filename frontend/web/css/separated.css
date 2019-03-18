@@ -2290,3 +2290,12 @@ html.has-popup body {
     max-width: 300px;
     height: 2rem;
 }
+
+/**
+ * PAYPAL BUTTON
+ */
+.paypal-button-container {
+    width: 250px;
+    margin-top: 1rem;
+    float: right;
+}

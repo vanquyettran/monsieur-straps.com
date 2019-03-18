@@ -14,7 +14,8 @@
                 <!-- filled by JS -->
             </table>
         </div>
-        <div class="contact-view">
+        <div id="paypal-button-container" class="paypal-button-container"></div>
+        <!--<div class="contact-view">
             <div class="title">Contact</div>
             <form>
                 <div class="field-group">
@@ -83,7 +84,6 @@
             </form>
         </div>
         <div>
-            <!-- https://developer.paypal.com/docs/classic/paypal-payments-standard/integration-guide/cart_upload/# -->
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_cart">
                 <input type="hidden" name="business" value="5Y8HZYMY7KUSW">
@@ -104,10 +104,9 @@
                 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
             </form>
-        </div>
+        </div>-->
     </div>
 </div>
-
 
 <script>
     function fillUpShoppingCartView() {
@@ -165,79 +164,130 @@
 
     fillUpShoppingCartView();
 
-    document.querySelector('[name="amount"]').value = getCacheData('shoppingCartItems', []).reduce(function (amount, item) {
-        return amount + item.quantity * item.discountedPrice;
-    }, 0);
+//    document.querySelector('[name="amount"]').value = getCacheData('shoppingCartItems', []).reduce(function (amount, item) {
+//        return amount + item.quantity * item.discountedPrice;
+//    }, 0);
 </script>
 
 <script>
-    var form = document.querySelector('.contact-view form');
-    form.onsubmit = function (ev) {
-        ev.preventDefault();
-        var customer = {
-            name: '',
-            address: '',
-            address_2: '',
-            city: '',
-            province: '',
-            country: '',
-            postal_code: '',
-            phone: '',
-            email: ''
-        };
-        var attr;
-        for (attr in customer) {
-            if (customer.hasOwnProperty(attr)) {
-                customer[attr] = form.querySelector('[name="' + attr + '"]').value;
-            }
+//    var form = document.querySelector('.contact-view form');
+//    form.onsubmit = function (ev) {
+//        ev.preventDefault();
+//        var customer = {
+//            name: '',
+//            address: '',
+//            address_2: '',
+//            city: '',
+//            province: '',
+//            country: '',
+//            postal_code: '',
+//            phone: '',
+//            email: ''
+//        };
+//        var attr;
+//        for (attr in customer) {
+//            if (customer.hasOwnProperty(attr)) {
+//                customer[attr] = form.querySelector('[name="' + attr + '"]').value;
+//            }
+//        }
+//        console.log(customer);
+//
+//        var shoppingCartItems = getCacheData('shoppingCartItems', []);
+//        var order = {
+//            totalValue: shoppingCartItems.reduce(function (amount, item) {
+//                return amount + item.quantity * item.discountedPrice;
+//            }, 0),
+//            deliveryFee: 0
+//        };
+//
+//        submitOrderForm(
+//            shoppingCartItems,
+//            order,
+//            customer,
+//            function (ProductOrder) {
+//                console.log('ProductOrder', ProductOrder);
+//                setCacheData('shoppingCartItems', []);
+//            },
+//            function (err) {
+//                console.log(err);
+//                setCacheData('shoppingCartItems', []);
+//            }
+//        );
+//    };
+//
+//    function submitOrderForm(products, order, customer, onSuccess, onError) {
+//        var fd = new FormData();
+//
+//        fd.append('products', JSON.stringify(products));
+//        fd.append('order', JSON.stringify(order));
+//        fd.append('customer', JSON.stringify(customer));
+//        fd.append('<?//= Yii::$app->request->csrfParam ?>//', '<?//= Yii::$app->request->csrfToken ?>//');
+//
+//        var xhr = new XMLHttpRequest();
+//
+//        xhr.open('POST', '<?//= \yii\helpers\Url::to(['product-api/save-product-order']) ?>//', true);
+//        xhr.onload = function () {
+//            var res = JSON.parse(xhr.responseText);
+//            if (res.ProductOrder && res.ProductOrder.id) {
+//                onSuccess(res.ProductOrder);
+//            } else {
+//                onError(res.errors);
+//            }
+//        };
+//        xhr.onerror = function () {
+//            onError({status: xhr.status, statusText: xhr.statusText});
+//        };
+//        xhr.send(fd);
+//    }
+</script>
+
+<script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
+<script>
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                "intent": "CAPTURE",
+//                "payer": {"name": {"given_name": "Jane", "surname": "Doe"}},
+                "purchase_units": [{
+                    "description": "This is the payment transaction description.",
+                    "amount": {
+//                        "currency": "USD",
+//                        "details": {"subtotal": 300, "shipping": 20, "tax": 30},
+                        "value": 350,
+                        "currency_code": "USD"
+                    }
+//                    ,
+//                    "shipping": {
+//                        "name": {"full_name": "Jane Doe"},
+//                        "address": {
+//                            "address_line_1": "2211 North Street",
+//                            "address_line_2": "",
+//                            "admin_area_1": "San Jose",
+//                            "admin_area_2": "CA",
+//                            "country_code": "US",
+//                            "postal_code": "95123"
+//                        }
+//                    }
+                }],
+                "application_context": {}
+            });
+        },
+        onApprove: function(data, actions) {
+            // Capture the funds from the transaction
+            return actions.order.capture().then(function(details) {
+                // Show a success message to your buyer
+                alert('Transaction completed by ' + details.payer.name.given_name);
+                // Call your server to save the transaction
+                return fetch('<?= \yii\helpers\Url::to(['product-api/paypal-transaction-complete']) ?>', {
+                    method: 'post',
+                    body: JSON.stringify({
+                        orderID: data.orderID
+                    })
+                });
+            });
+        },
+        onError: function (err) {
+
         }
-        console.log(customer);
-
-        var shoppingCartItems = getCacheData('shoppingCartItems', []);
-        var order = {
-            totalValue: shoppingCartItems.reduce(function (amount, item) {
-                return amount + item.quantity * item.discountedPrice;
-            }, 0),
-            deliveryFee: 0
-        };
-
-        submitOrderForm(
-            shoppingCartItems,
-            order,
-            customer,
-            function (ProductOrder) {
-                console.log('ProductOrder', ProductOrder);
-                setCacheData('shoppingCartItems', []);
-            },
-            function (err) {
-                console.log(err);
-                setCacheData('shoppingCartItems', []);
-            }
-        );
-    };
-
-    function submitOrderForm(products, order, customer, onSuccess, onError) {
-        var fd = new FormData();
-
-        fd.append('products', JSON.stringify(products));
-        fd.append('order', JSON.stringify(order));
-        fd.append('customer', JSON.stringify(customer));
-        fd.append('<?= Yii::$app->request->csrfParam ?>', '<?= Yii::$app->request->csrfToken ?>');
-
-        var xhr = new XMLHttpRequest();
-
-        xhr.open('POST', '<?= \yii\helpers\Url::to(['product-api/save-product-order']) ?>', true);
-        xhr.onload = function () {
-            var res = JSON.parse(xhr.responseText);
-            if (res.ProductOrder && res.ProductOrder.id) {
-                onSuccess(res.ProductOrder);
-            } else {
-                onError(res.errors);
-            }
-        };
-        xhr.onerror = function () {
-            onError({status: xhr.status, statusText: xhr.statusText});
-        };
-        xhr.send(fd);
-    }
+    }).render('#paypal-button-container');
 </script>

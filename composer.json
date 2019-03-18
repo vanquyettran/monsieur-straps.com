@@ -22,7 +22,8 @@
         "vanquyet/yii2-query-template": "*",
         "vanquyet/yii2-menu": "dev-master",
         "mobiledetect/mobiledetectlib": "^2.8",
-        "facebook/graph-sdk": "*"
+        "facebook/graph-sdk": "*",
+        "paypal/paypal-checkout-sdk": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

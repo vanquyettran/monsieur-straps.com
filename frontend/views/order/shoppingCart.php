@@ -164,6 +164,8 @@
 
     fillUpShoppingCartView();
 
+    initPaypalButton();
+
 //    document.querySelector('[name="amount"]').value = getCacheData('shoppingCartItems', []).reduce(function (amount, item) {
 //        return amount + item.quantity * item.discountedPrice;
 //    }, 0);
@@ -243,53 +245,60 @@
 
 <script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
 <script>
-    paypal.Buttons({
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                "intent": "CAPTURE",
-//                "payer": {"name": {"given_name": "Jane", "surname": "Doe"}},
-                "purchase_units": [{
-                    "description": "This is the payment transaction description.",
-                    "amount": {
-//                        "currency": "USD",
-//                        "details": {"subtotal": 300, "shipping": 20, "tax": 30},
-                        "value": getCacheData('shoppingCartItems', []).reduce(function (amount, item) {
-                            return amount + item.quantity * item.discountedPrice;
-                        }, 0),
-                        "currency_code": "USD"
-                    }
-//                    ,
-//                    "shipping": {
-//                        "name": {"full_name": "Jane Doe"},
-//                        "address": {
-//                            "address_line_1": "2211 North Street",
-//                            "address_line_2": "",
-//                            "admin_area_1": "San Jose",
-//                            "admin_area_2": "CA",
-//                            "country_code": "US",
-//                            "postal_code": "95123"
-//                        }
-//                    }
-                }],
-                "application_context": {}
-            });
-        },
-        onApprove: function(data, actions) {
-            // Capture the funds from the transaction
-            return actions.order.capture().then(function(details) {
-                // Show a success message to your buyer
-                alert('Transaction completed by ' + details.payer.name.given_name);
-                // Call your server to save the transaction
-                return fetch('<?= \yii\helpers\Url::to(['product-api/paypal-transaction-complete']) ?>', {
-                    method: 'post',
-                    body: JSON.stringify({
-                        orderID: data.orderID
-                    })
-                });
-            });
-        },
-        onError: function (err) {
-
+    function initPaypalButton() {
+        var shoppingCartItems = getCacheData('shoppingCartItems', []);
+        if (shoppingCartItems.length === 0) {
+            return;
         }
-    }).render('#paypal-button-container');
+
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    "intent": "CAPTURE",
+    //                "payer": {"name": {"given_name": "Jane", "surname": "Doe"}},
+                    "purchase_units": [{
+                        "description": "This is the payment transaction description.",
+                        "amount": {
+    //                        "currency": "USD",
+    //                        "details": {"subtotal": 300, "shipping": 20, "tax": 30},
+                            "value": shoppingCartItems.reduce(function (amount, item) {
+                                return amount + item.quantity * item.discountedPrice;
+                            }, 0),
+                            "currency_code": "USD"
+                        }
+    //                    ,
+    //                    "shipping": {
+    //                        "name": {"full_name": "Jane Doe"},
+    //                        "address": {
+    //                            "address_line_1": "2211 North Street",
+    //                            "address_line_2": "",
+    //                            "admin_area_1": "San Jose",
+    //                            "admin_area_2": "CA",
+    //                            "country_code": "US",
+    //                            "postal_code": "95123"
+    //                        }
+    //                    }
+                    }],
+                    "application_context": {}
+                });
+            },
+            onApprove: function(data, actions) {
+                // Capture the funds from the transaction
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to your buyer
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                    // Call your server to save the transaction
+                    return fetch('<?= \yii\helpers\Url::to(['product-api/paypal-transaction-complete']) ?>', {
+                        method: 'post',
+                        body: JSON.stringify({
+                            orderID: data.orderID
+                        })
+                    });
+                });
+            },
+            onError: function (err) {
+
+            }
+        }).render('#paypal-button-container');
+    }
 </script>

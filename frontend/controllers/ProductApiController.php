@@ -131,7 +131,7 @@ class ProductApiController extends Controller
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        if ($response->statusCode !== 200 || $response->result['status'] !== 'COMPLETED') {
+        if ($response->statusCode !== 200 || $response->result->status !== 'COMPLETED') {
             return [
                 'status' => 'paypal_error_res',
                 'result' => $response->result,
@@ -143,11 +143,11 @@ class ProductApiController extends Controller
         $model = new ProductOrder();
         $model->status = ProductOrder::STATUS__NEW;
         // Customer
-        $model->customer_name = $response->result['payer']['name']['given_name']
-            . ' ' . $response->result['payer']['name']['surname'];
+        $model->customer_name = $response->result->payer->name->given_name
+            . ' ' . $response->result->payer->name->surname;
         // payment data
         $model->payment_gateway_name = ProductOrder::PAYMENT_GATEWAY__PAYPAL;
-        $model->payment_gateway_response = json_encode($response);
+        $model->payment_gateway_response = json_encode((array) $response);
         // Order
         $model->delivery_fee = 0;
         $model->total_value = $total_value;

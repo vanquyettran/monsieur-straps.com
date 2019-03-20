@@ -329,10 +329,10 @@
                     [
                         searchInput = elm('input', null, {
                             type: 'text',
-                            placeholder: 'Nhập từ khóa tìm kiếm',
+                            placeholder: 'What are you looking for?',
                             'class': 'search-input'
                         }),
-                        submitButton = elm('button', 'Tìm kiếm', {
+                        submitButton = elm('button', 'Search', {
                             type: 'submit',
                             'class': 'submit-button'
                         })

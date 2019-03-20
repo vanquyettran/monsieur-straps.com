@@ -84,13 +84,13 @@ use yii\widgets\DetailView;
         [
             'attribute' => 'total_value',
             'value' => function (\backend\models\ProductOrder $model) {
-                return number_format($model->total_value) . ' VND';
+                return number_format($model->total_value) . ' USD';
             }
         ],
         [
             'attribute' => 'delivery_fee',
             'value' => function (\backend\models\ProductOrder $model) {
-                return number_format($model->delivery_fee) . ' VND';
+                return number_format($model->delivery_fee) . ' USD';
             }
         ],
         'customer_name',

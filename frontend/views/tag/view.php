@@ -23,7 +23,7 @@ use yii\helpers\Html;
                 if (count($articles) > 0) {
                     echo $this->render('//article/_thumbnailList', [ 'models' => $articles ]);
                 } else {
-                    echo 'Chưa có nội dung cho mục này.';
+                    echo 'No content yet.';
                 }
                 ?>
             </div>
@@ -34,7 +34,7 @@ use yii\helpers\Html;
                     type="button"
                     class="see-more"
                     onclick="loadMore(this.previousElementSibling, this)"
-                >Xem thêm</button>
+                >See more</button>
                 <?php
             }
             ?>

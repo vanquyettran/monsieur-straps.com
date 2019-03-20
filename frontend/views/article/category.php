@@ -86,7 +86,7 @@ if ($bannerImage = $category->bannerImage) {
                             type="button"
                             class="see-more"
                             onclick="loadMore(this.previousElementSibling, this)"
-                        >Xem thêm</button>
+                        >See more</button>
                         <?php
                     }
                     ?>

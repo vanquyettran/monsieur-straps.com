@@ -88,7 +88,7 @@ if (count($category->bannerImages) > 0) {
                 <form action="" method="get" class="filter-form" id="filter-form">
                     <div class="groups">
                         <div class="group">
-                            <h4 class="name">Sắp xếp</h4>
+                            <h4 class="name">Sort By</h4>
                             <div class="options">
                                 <label>
                                     <input type="radio"
@@ -97,7 +97,7 @@ if (count($category->bannerImages) > 0) {
                                            <?= 'recently' == $sort ? 'checked' : '' ?>
                                     >
                                     <b></b>
-                                    <span>Mới nhất</span>
+                                    <span>Recently</span>
                                 </label>
                                 <label>
                                     <input type="radio"
@@ -106,7 +106,7 @@ if (count($category->bannerImages) > 0) {
                                            <?= 'price_up' == $sort ? 'checked' : '' ?>
                                     >
                                     <b></b>
-                                    <span>Giá tăng</span>
+                                    <span>Price Ascending</span>
                                 </label>
                                 <label>
                                     <input type="radio"
@@ -115,7 +115,7 @@ if (count($category->bannerImages) > 0) {
                                            <?= 'price_down' == $sort ? 'checked' : '' ?>
                                     >
                                     <b></b>
-                                    <span>Giá giảm</span>
+                                    <span>Price Descending</span>
                                 </label>
                             </div>
                         </div>
@@ -161,7 +161,7 @@ if (count($category->bannerImages) > 0) {
                     if (count($products) > 0) {
                         echo $this->render('_thumbnailList', ['models' => $products]);
                     } else {
-                        echo 'Chưa có nội dung cho mục này.';
+                        echo 'No content yet.';
                     }
                     ?>
                 </div>
@@ -172,7 +172,7 @@ if (count($category->bannerImages) > 0) {
                         type="button"
                         class="see-more"
                         onclick="loadMore(this.previousElementSibling, this)"
-                    >Xem thêm</button>
+                    >See more</button>
                     <?php
                 }
                 ?>

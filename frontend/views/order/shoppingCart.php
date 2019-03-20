@@ -295,7 +295,7 @@
                     return fetch('<?= \yii\helpers\Url::to(['product-api/paypal-transaction-complete']) ?>', {
                         method: 'post',
                         body: JSON.stringify({
-                            orderID: data.orderID
+                            order_id: data.orderID
                         })
                     });
                 });

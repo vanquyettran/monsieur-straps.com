@@ -121,16 +121,6 @@ class ProductApiController extends Controller
         $client = PayPalClient::client();
         $response = $client->execute(new OrdersGetRequest($orderId));
 
-        print "Status Code: {$response->statusCode}\n";
-        print "Status: {$response->result->status}\n";
-        print "Order ID: {$response->result->id}\n";
-        print "Intent: {$response->result->intent}\n";
-        print "Links:\n";
-        foreach($response->result->links as $link)
-        {
-            print "\t{$link->rel}: {$link->href}\tCall Type: {$link->method}\n";
-        }
-
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         return [

@@ -115,8 +115,10 @@ class ProductApiController extends Controller
 
     public function actionPaypalTransactionComplete() {
         $orderId = \Yii::$app->request->post('order_id');
-        $client = PayPalClient::client();
-        $res = $client->execute(new OrdersGetRequest($orderId));
-        echo json_encode($res->result, JSON_PRETTY_PRINT);
+        echo $orderId;
+        return;
+//        $client = PayPalClient::client();
+//        $res = $client->execute(new OrdersGetRequest($orderId));
+//        echo json_encode($res->result, JSON_PRETTY_PRINT);
     }
 }

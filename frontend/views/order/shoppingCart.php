@@ -10,9 +10,11 @@
     <div class="inner clr">
         <div id="shopping-cart-view" class="shopping-cart-view">
             <div class="title"></div>
-            <table>
-                <!-- filled by JS -->
-            </table>
+            <div class="table-wrapper">
+                <table>
+                    <!-- filled by JS -->
+                </table>
+            </div>
         </div>
         <div id="payment-view" class="payment-view hidden">
             <div class="title">Checkout with Paypal</div>

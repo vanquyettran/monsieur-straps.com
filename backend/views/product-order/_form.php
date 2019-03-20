@@ -100,9 +100,7 @@ use yii\widgets\DetailView;
         [
             'attribute' => 'payment_gateway_response',
             'value' => function (\backend\models\ProductOrder $model) {
-                return '<pre>'
-                .json_encode(json_decode($model->payment_gateway_response, true), JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE)
-                .'</pre>';
+                return json_encode(json_decode($model->payment_gateway_response, true), JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
             }
         ],
         'created_time',

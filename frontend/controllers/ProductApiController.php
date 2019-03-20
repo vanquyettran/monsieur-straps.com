@@ -119,6 +119,8 @@ class ProductApiController extends Controller
         $total_value = \Yii::$app->request->post('total_value');
         $products = \Yii::$app->request->post('products');
 
+        echo $paypal_order_id;exit();
+
         putenv('CLIENT_ID=' . \Yii::$app->params['paypal.clientID']);
         putenv('CLIENT_SECRET=' . \Yii::$app->params['paypal.clientSecret']);
 
@@ -176,6 +178,7 @@ class ProductApiController extends Controller
         }
 
         return [
+            'statusCode' => 200,
             'ProductOrder' => $model->attributes,
             'ProductOrderToProduct' => $junctionAttributesList,
             'errors' => $errors

@@ -228,7 +228,8 @@ use yii\helpers\Url;
             content,
             {
                 style: style({
-                    padding: "30px"
+                    padding: '50px 20px',
+                    background: '#fff'
                 })
             }
         );

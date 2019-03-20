@@ -244,7 +244,7 @@
 //    }
 </script>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AeDdMjpwHKx05zK8ge1h79gPUeUhjz6c4xx83Uy1U0M1_jbWD969X56O_tHKXmlrghzx19ZIb3EvLdj3"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=<?= \Yii::$app->params['paypal.clientID'] ?>"></script>
 <script>
     function initPaypalButton() {
         var shoppingCartItems = getCacheData('shoppingCartItems', []);
@@ -294,11 +294,17 @@
                     // Call your server to save the transaction
                     var xhr = new XMLHttpRequest();
                     xhr.onload = function () {
-                        popup(xhr.responseText);
+                        var res = JSON.parse(xhr.responseText);
+                        if (res.statusCode === 200) {
+                            popup('Paid successfully! Thanks for your payment. Paypal_Order_ID: ' + data.orderID);
+                            console.log(res);
+                        } else {
+                            popup('Failed to get the order details from PayPal. Paypal_Order_ID: ' + data.orderID)
+                        }
                     };
                     xhr.open("POST", "<?= \yii\helpers\Url::to(['product-api/paypal-transaction-complete']) ?>");
                     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                    xhr.send('order_id=' + data['orderID']);
+                    xhr.send('order_id=' + data.orderID);
                 });
             },
             onError: function (err) {

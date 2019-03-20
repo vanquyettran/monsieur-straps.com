@@ -16,6 +16,7 @@ use PayPalCheckoutSdk\Orders\OrdersGetRequest;
 use Sample\PayPalClient;
 use yii\rest\Controller;
 use yii\web\BadRequestHttpException;
+use yii\web\JsonResponseFormatter;
 
 class ProductApiController extends Controller
 {
@@ -115,8 +116,8 @@ class ProductApiController extends Controller
 
     public function actionPaypalTransactionComplete() {
         $orderId = \Yii::$app->request->post('order_id');
-        putenv('CLIENT_ID=AeDdMjpwHKx05zK8ge1h79gPUeUhjz6c4xx83Uy1U0M1_jbWD969X56O_tHKXmlrghzx19ZIb3EvLdj3');
-        putenv('CLIENT_SECRET=EI13SW0w10bs8Zizr1ql0K_g1-iT8Xwq3CiaoJ4Fa_8OezgsNagJsK6s1RBpNLcYiR8qS9p3pV5U-jxZ');
+        putenv('CLIENT_ID=' . \Yii::$app->params['paypal.clientID']);
+        putenv('CLIENT_SECRET=' . \Yii::$app->params['paypal.clientSecret']);
         $client = PayPalClient::client();
         $response = $client->execute(new OrdersGetRequest($orderId));
 
@@ -129,5 +130,12 @@ class ProductApiController extends Controller
         {
             print "\t{$link->rel}: {$link->href}\tCall Type: {$link->method}\n";
         }
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        return [
+            'statusCode' => $response->statusCode,
+            'result' => $response->result,
+        ];
     }
 }

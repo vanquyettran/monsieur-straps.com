@@ -315,7 +315,6 @@
                     fd.append('products', JSON.stringify(getCacheData('shoppingCartItems', [])));
                     fd.append('paypal_order_id', data.orderID);
                     fd.append('total_value', total_value);
-                    fd.append('<?= Yii::$app->request->csrfParam ?>', '<?= Yii::$app->request->csrfToken ?>');
                     xhr.send(fd);
                 });
             },

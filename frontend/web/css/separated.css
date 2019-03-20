@@ -2310,4 +2310,5 @@ html.has-popup body {
 }
 .payment-view .paypal-button-container {
     width: 200px;
+    z-index: 0;
 }

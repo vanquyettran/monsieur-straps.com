@@ -99,6 +99,7 @@ use yii\widgets\DetailView;
         'payment_gateway_name',
         [
             'attribute' => 'payment_gateway_response',
+            'format' => 'json',
             'value' => function (\backend\models\ProductOrder $model) {
                 return json_encode(json_decode($model->payment_gateway_response, true), JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
             }

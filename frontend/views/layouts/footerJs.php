@@ -283,7 +283,7 @@
                 var paginationBlock = elm(
                     'div',
                     [
-                        queries.previousPage && elm('a', 'Trang trước', {
+                        queries.previousPage && elm('a', 'Previous', {
                             'class': 'prev-button',
                             onclick: function () {
                                 requestSearch(pageIndex - 1);
@@ -294,7 +294,7 @@
                         && elm('span', '|', {
                             'class': 'divider'
                         }),
-                        queries.nextPage && elm('a', 'Trang tiếp theo', {
+                        queries.nextPage && elm('a', 'Next', {
                             'class': 'next-button',
                             onclick: function () {
                                 requestSearch(pageIndex + 1);

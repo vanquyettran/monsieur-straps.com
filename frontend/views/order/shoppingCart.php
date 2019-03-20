@@ -263,27 +263,12 @@
             createOrder: function(data, actions) {
                 return actions.order.create({
                     "intent": "CAPTURE",
-    //                "payer": {"name": {"given_name": "Jane", "surname": "Doe"}},
                     "purchase_units": [{
                         "description": "This is the payment transaction description.",
                         "amount": {
-    //                        "currency": "USD",
-    //                        "details": {"subtotal": 300, "shipping": 20, "tax": 30},
                             "value": total_value,
                             "currency_code": "USD"
                         }
-    //                    ,
-    //                    "shipping": {
-    //                        "name": {"full_name": "Jane Doe"},
-    //                        "address": {
-    //                            "address_line_1": "2211 North Street",
-    //                            "address_line_2": "",
-    //                            "admin_area_1": "San Jose",
-    //                            "admin_area_2": "CA",
-    //                            "country_code": "US",
-    //                            "postal_code": "95123"
-    //                        }
-    //                    }
                     }],
                     "application_context": {}
                 });
@@ -299,15 +284,26 @@
                         var res = JSON.parse(xhr.responseText);
                         switch (res.status) {
                             case 'success':
-                                popup('Paid successfully! Thanks for your payment. Paypal_Order_ID: ' + data.orderID);
+                                popup('Successfully! Thanks for your payment.');
                                 break;
                             case 'db_insert_error':
-                                popup('Failed save your order. Please contact us for support. Paypal_Order_ID: ' + data.orderID)
+                                popup('Failed save your order. Please contact us for support. Paypal_Order_ID: ' + data.orderID);
                                 break;
                             case 'paypal_error_res':
-                                popup('Failed to get the order details from PayPal. Paypal_Order_ID: ' + data.orderID)
+                                popup('Failed to get the order details from PayPal. Please contact us for support. Paypal_Order_ID: ' + data.orderID);
                                 break;
+                            default:
+                                popup('Something went wrong! Please contact us for support. Paypal_Order_ID: ' + data.orderID);
                         }
+
+                        // clear cart
+                        setCacheData('shoppingCartItems', []);
+                    };
+                    xhr.onerror = function () {
+                        popup('No internet connection.');
+                    };
+                    xhr.onloadend = function () {
+                        document.querySelector('body').classList.remove('loading-opacity');
                     };
                     xhr.open("POST", "<?= \yii\helpers\Url::to(['product-api/paypal-transaction-complete']) ?>", true);
 
@@ -315,6 +311,8 @@
                     fd.append('products', JSON.stringify(getCacheData('shoppingCartItems', [])));
                     fd.append('paypal_order_id', data.orderID);
                     fd.append('total_value', total_value);
+
+                    document.querySelector('body').classList.add('loading-opacity');
                     xhr.send(fd);
                 });
             },

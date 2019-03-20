@@ -244,7 +244,7 @@
 //    }
 </script>
 
-<script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AeDdMjpwHKx05zK8ge1h79gPUeUhjz6c4xx83Uy1U0M1_jbWD969X56O_tHKXmlrghzx19ZIb3EvLdj3"></script>
 <script>
     function initPaypalButton() {
         var shoppingCartItems = getCacheData('shoppingCartItems', []);

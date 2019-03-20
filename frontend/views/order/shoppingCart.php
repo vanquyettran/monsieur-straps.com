@@ -290,7 +290,7 @@
                 // Capture the funds from the transaction
                 return actions.order.capture().then(function(details) {
                     // Show a success message to your buyer
-                    alert('Transaction completed by ' + details.payer.name.given_name);
+                    popup('Transaction completed by ' + details.payer.name.given_name);
                     // Call your server to save the transaction
                     return fetch('<?= \yii\helpers\Url::to(['product-api/paypal-transaction-complete']) ?>', {
                         method: 'post',

@@ -115,10 +115,17 @@ class ProductApiController extends Controller
 
     public function actionPaypalTransactionComplete() {
         $orderId = \Yii::$app->request->post('order_id');
-        echo $orderId;
-        exit();
-//        $client = PayPalClient::client();
-//        $res = $client->execute(new OrdersGetRequest($orderId));
-//        echo json_encode($res->result, JSON_PRETTY_PRINT);
+        $client = PayPalClient::client();
+        $response = $client->execute(new OrdersGetRequest($orderId));
+
+        print "Status Code: {$response->statusCode}\n";
+        print "Status: {$response->result->status}\n";
+        print "Order ID: {$response->result->id}\n";
+        print "Intent: {$response->result->intent}\n";
+        print "Links:\n";
+        foreach($response->result->links as $link)
+        {
+            print "\t{$link->rel}: {$link->href}\tCall Type: {$link->method}\n";
+        }
     }
 }

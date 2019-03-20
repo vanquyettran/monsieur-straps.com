@@ -119,9 +119,11 @@ class ProductApiController extends Controller
             throw new BadRequestHttpException('Invalid Request. Request must be POST.');
         }
 
-        $products = \Yii::$app->request->post('products');
+        $products_json = \Yii::$app->request->post('products');
         $paypal_order_id = \Yii::$app->request->post('paypal_order_id');
         $total_value = \Yii::$app->request->post('total_value');
+
+        $products = json_decode($products_json, true);
 
         putenv('CLIENT_ID=' . \Yii::$app->params['paypal.clientID']);
         putenv('CLIENT_SECRET=' . \Yii::$app->params['paypal.clientSecret']);

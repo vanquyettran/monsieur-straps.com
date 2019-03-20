@@ -255,6 +255,10 @@
         var paymentView = document.querySelector('#payment-view');
         paymentView.classList.remove('hidden');
 
+        var total_value = shoppingCartItems.reduce(function (amount, item) {
+            return amount + item.quantity * item.discountedPrice;
+        }, 0);
+
         paypal.Buttons({
             createOrder: function(data, actions) {
                 return actions.order.create({
@@ -265,9 +269,7 @@
                         "amount": {
     //                        "currency": "USD",
     //                        "details": {"subtotal": 300, "shipping": 20, "tax": 30},
-                            "value": shoppingCartItems.reduce(function (amount, item) {
-                                return amount + item.quantity * item.discountedPrice;
-                            }, 0),
+                            "value": total_value,
                             "currency_code": "USD"
                         }
     //                    ,
@@ -304,7 +306,12 @@
                     };
                     xhr.open("POST", "<?= \yii\helpers\Url::to(['product-api/paypal-transaction-complete']) ?>");
                     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                    xhr.send('order_id=' + data.orderID);
+
+                    var fd = new FormData();
+                    fd.append('products', JSON.stringify(getCacheData('shoppingCartItems', [])));
+                    fd.append('paypal_order_id', data.orderID);
+                    fd.append('total_value', total_value);
+                    xhr.send(fd);
                 });
             },
             onError: function (err) {

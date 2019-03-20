@@ -115,17 +115,71 @@ class ProductApiController extends Controller
     }
 
     public function actionPaypalTransactionComplete() {
-        $orderId = \Yii::$app->request->post('order_id');
+        $paypal_order_id = \Yii::$app->request->post('paypal_order_id');
+        $total_value = \Yii::$app->request->post('total_value');
+        $products = \Yii::$app->request->post('products');
+
         putenv('CLIENT_ID=' . \Yii::$app->params['paypal.clientID']);
         putenv('CLIENT_SECRET=' . \Yii::$app->params['paypal.clientSecret']);
+
         $client = PayPalClient::client();
-        $response = $client->execute(new OrdersGetRequest($orderId));
+        $response = $client->execute(new OrdersGetRequest($paypal_order_id));
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
+        if ($response->statusCode !== 200 || $response->result['status'] !== 'COMPLETED') {
+            return [
+                'statusCode' => $response->statusCode,
+                'result' => $response->result,
+            ];
+        }
+
+        $errors = [];
+
+        $model = new ProductOrder();
+        $model->status = ProductOrder::STATUS__NEW;
+        // Customer
+        $model->customer_name = $response->result['payer']['name']['given_name']
+            . ' ' . $response->result['payer']['name']['surname'];
+        // payment data
+        $model->payment_gateway_name = ProductOrder::PAYMENT_GATEWAY__PAYPAL;
+        $model->payment_gateway_response = json_encode($response);
+        // Order
+        $model->delivery_fee = 0;
+        $model->total_value = $total_value;
+
+        $junctionAttributesList = [];
+
+        if ($model->save()) {
+            foreach ($products as $product) {
+                $junction = new ProductOrderToProduct();
+                $junction->product_order_id = $model->id;
+                $junction->product_id = $product['id'];
+                $junction->product_name = $product['name'];
+                $junction->product_code = $product['code'];
+                $junction->product_price = $product['price'];
+                $junction->product_discounted_price = $product['discountedPrice'];
+                $junction->product_quantity = $product['quantity'];
+                $junction->product_customizing = json_encode($product['customizing'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+                if ($junction->product_customizing === '[]') {
+                    $junction->product_customizing = '{}';
+                }
+
+                if ($junction->save()) {
+                    $junctionAttributesList[] = $junction->attributes;
+                } else {
+                    $errors['ProductOrderToProduct'][] = $junction->errors;
+                }
+            }
+        } else {
+            $errors['ProductOrder'] = $model->errors;
+        }
+
         return [
-            'statusCode' => $response->statusCode,
-            'result' => $response->result,
+            'ProductOrder' => $model->attributes,
+            'ProductOrderToProduct' => $junctionAttributesList,
+            'errors' => $errors
         ];
+
     }
 }

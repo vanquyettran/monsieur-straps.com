@@ -21,6 +21,8 @@ use yii\behaviors\TimestampBehavior;
  * @property string $customer_province
  * @property string $customer_city
  * @property string $customer_postal_code
+ * @property string $payment_gateway_name
+ * @property string $payment_gateway_response
  * @property int $status
  * @property string $created_time
  * @property string $updated_time
@@ -39,6 +41,8 @@ class ProductOrder extends \common\db\MyActiveRecord
     const STATUS__REFUSED = 4;
     const STATUS__DELIVERING = 5;
     const STATUS__PROGRESSING = 6;
+
+    const PAYMENT_GATEWAY__PAYPAL = 'paypal';
 
     public static $allStatusLabels = [
         self::STATUS__NEW => 'New',
@@ -98,10 +102,11 @@ class ProductOrder extends \common\db\MyActiveRecord
     public function rules()
     {
         return [
-            [['total_value', 'delivery_fee', 'customer_name', 'customer_phone', 'customer_email', 'customer_address', 'customer_country', 'customer_province', 'customer_city', 'customer_postal_code', 'status'], 'required'],
+            [['total_value', 'delivery_fee', 'customer_name', 'customer_address', 'status'], 'required'],
             [['total_value', 'delivery_fee', 'status', 'updated_user_id'], 'integer'],
-            [['customer_name', 'customer_phone', 'customer_email', 'customer_address', 'customer_address_2', 'customer_country', 'customer_province', 'customer_city', 'customer_postal_code'], 'string', 'max' => 255],
+            [['customer_name', 'customer_phone', 'customer_email', 'customer_address', 'customer_address_2', 'customer_country', 'customer_province', 'customer_city', 'customer_postal_code', 'payment_gateway_name'], 'string', 'max' => 255],
             [['user_note'], 'string', 'max' => 2047],
+            [['payment_gateway_response'], 'string'],
             [['updated_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_user_id' => 'id']],
         ];
     }
@@ -119,9 +124,6 @@ class ProductOrder extends \common\db\MyActiveRecord
             'customer_phone' => 'Customer Phone',
             'customer_email' => 'Customer Email',
             'customer_address' => 'Customer Address',
-            'customer_place_t1_id' => 'Customer Place T1 ID',
-            'customer_place_t2_id' => 'Customer Place T2 ID',
-            'customer_place_t3_id' => 'Customer Place T3 ID',
             'status' => 'Status',
             'created_time' => 'Created Time',
             'updated_time' => 'Updated Time',

@@ -297,20 +297,25 @@
                     var xhr = new XMLHttpRequest();
                     xhr.onload = function () {
                         var res = JSON.parse(xhr.responseText);
-                        if (res.statusCode === 200) {
-                            popup('Paid successfully! Thanks for your payment. Paypal_Order_ID: ' + data.orderID);
-                            console.log(res);
-                        } else {
-                            popup('Failed to get the order details from PayPal. Paypal_Order_ID: ' + data.orderID)
+                        switch (res.status) {
+                            case 'success':
+                                popup('Paid successfully! Thanks for your payment. Paypal_Order_ID: ' + data.orderID);
+                                break;
+                            case 'db_insert_error':
+                                popup('Failed save your order. Please contact us for support. Paypal_Order_ID: ' + data.orderID)
+                                break;
+                            case 'paypal_error_res':
+                                popup('Failed to get the order details from PayPal. Paypal_Order_ID: ' + data.orderID)
+                                break;
                         }
                     };
-                    xhr.open("POST", "<?= \yii\helpers\Url::to(['product-api/paypal-transaction-complete']) ?>");
-                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xhr.open("POST", "<?= \yii\helpers\Url::to(['product-api/paypal-transaction-complete']) ?>", true);
 
                     var fd = new FormData();
                     fd.append('products', JSON.stringify(getCacheData('shoppingCartItems', [])));
                     fd.append('paypal_order_id', data.orderID);
                     fd.append('total_value', total_value);
+                    fd.append('<?= Yii::$app->request->csrfParam ?>', '<?= Yii::$app->request->csrfToken ?>');
                     xhr.send(fd);
                 });
             },

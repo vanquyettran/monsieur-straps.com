@@ -7,11 +7,11 @@ return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
-        '@frontendUrl' => 'http://monsieur-straps.com',
-        '@frontendHost' => 'http://monsieur-straps.com',
-        '@backendUrl' => 'http://monsieur-straps.com/backend',
-        '@backendHost' => 'http://monsieur-straps.com',
-        '@imagesUrl' => 'http://monsieur-straps.com/images',
+        '@frontendUrl' => 'https://monsieur-straps.com',
+        '@frontendHost' => 'https://monsieur-straps.com',
+        '@backendUrl' => 'https://monsieur-straps.com/backend',
+        '@backendHost' => 'https://monsieur-straps.com',
+        '@imagesUrl' => 'https://monsieur-straps.com/images',
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [

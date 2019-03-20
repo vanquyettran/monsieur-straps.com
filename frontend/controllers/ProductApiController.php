@@ -115,11 +115,13 @@ class ProductApiController extends Controller
     }
 
     public function actionPaypalTransactionComplete() {
+        if (!\Yii::$app->request->isPost) {
+            throw new BadRequestHttpException('Invalid Request. Request must be POST.');
+        }
+
+        $products = \Yii::$app->request->post('products');
         $paypal_order_id = \Yii::$app->request->post('paypal_order_id');
         $total_value = \Yii::$app->request->post('total_value');
-        $products = \Yii::$app->request->post('products');
-
-        echo $paypal_order_id;exit();
 
         putenv('CLIENT_ID=' . \Yii::$app->params['paypal.clientID']);
         putenv('CLIENT_SECRET=' . \Yii::$app->params['paypal.clientSecret']);
@@ -131,7 +133,7 @@ class ProductApiController extends Controller
 
         if ($response->statusCode !== 200 || $response->result['status'] !== 'COMPLETED') {
             return [
-                'statusCode' => $response->statusCode,
+                'status' => 'paypal_error_res',
                 'result' => $response->result,
             ];
         }
@@ -173,16 +175,24 @@ class ProductApiController extends Controller
                     $errors['ProductOrderToProduct'][] = $junction->errors;
                 }
             }
+
+            return [
+                'status' => 'success',
+                'ProductOrder' => $model->attributes,
+                'ProductOrderToProduct' => $junctionAttributesList,
+                'errors' => $errors
+            ];
+
         } else {
             $errors['ProductOrder'] = $model->errors;
+
+            return [
+                'status' => 'db_insert_error',
+                'ProductOrder' => $model->attributes,
+                'errors' => $errors
+            ];
         }
 
-        return [
-            'statusCode' => 200,
-            'ProductOrder' => $model->attributes,
-            'ProductOrderToProduct' => $junctionAttributesList,
-            'errors' => $errors
-        ];
 
     }
 }

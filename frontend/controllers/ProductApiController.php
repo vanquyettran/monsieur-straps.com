@@ -148,10 +148,12 @@ class ProductApiController extends Controller
         $model->customer_name = $response->result->payer->name->given_name
             . ' ' . $response->result->payer->name->surname;
         $model->customer_address =
-            json_encode((array) $response->result->payer->address, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
-            . "\n"
-            . json_encode((array) $response->result->purchase_units[0]->shipping->address, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
-            ;
+            json_encode([
+                'address' => (array) $response->result->payer->address,
+                'shipping' => array_map(function ($purchase_unit) {
+                    return $purchase_unit->shipping->address;
+                }, $response->result->purchase_units)
+            ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         $model->customer_email = $response->result->payer->email_address;
         // payment data
         $model->payment_gateway_name = ProductOrder::PAYMENT_GATEWAY__PAYPAL;

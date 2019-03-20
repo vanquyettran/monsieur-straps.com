@@ -96,8 +96,15 @@ use yii\widgets\DetailView;
         'customer_name',
         'customer_email:email',
         'customer_address',
-        'payment_gateway_name:json',
-        'payment_gateway_response:json',
+        'payment_gateway_name',
+        [
+            'attribute' => 'payment_gateway_response',
+            'value' => function (\backend\models\ProductOrder $model) {
+                return '<pre>'
+                .json_encode(json_decode($model->payment_gateway_response, true), JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE)
+                .'</pre>';
+            }
+        ],
         'created_time',
         'updated_time',
         'updatedUser.username',

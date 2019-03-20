@@ -305,7 +305,6 @@
                         }
                     };
                     xhr.open("POST", "<?= \yii\helpers\Url::to(['product-api/paypal-transaction-complete']) ?>");
-                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
                     var fd = new FormData();
                     fd.append('products', JSON.stringify(getCacheData('shoppingCartItems', [])));

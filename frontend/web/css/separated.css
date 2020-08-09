@@ -14,11 +14,11 @@ html:not(.has-header-banner) #header .overlay {
     display: block;
     width: 100%;
 }
-#header .logo svg .cls-1 {
-    fill: #333;
+#header .logo .logo-white {
+    display: none;
 }
-#header .logo svg .cls-2 {
-    fill: #fff;
+#header .logo .logo-coloured {
+    display: block;
 }
 #header .open-search-button {
     display: block;
@@ -124,11 +124,11 @@ html:not(.has-header-banner) #header .shopping-cart-button {
 #header .header-banner .image {
     background-color: transparent;
 }
-html.has-header-banner #header .logo svg .cls-1 {
-    fill: #fff;
+html.has-header-banner #header .logo .logo-white {
+    display: block;
 }
-html.has-header-banner #header .logo svg .cls-2 {
-    fill: #333;
+html.has-header-banner #header .logo .logo-coloured {
+    display: none;
 }
 html.has-header-banner #header .overlay {
     position: absolute;
@@ -933,12 +933,6 @@ footer .logo svg,
 footer .logo img {
     display: block;
     width: 100%;
-}
-footer .logo svg .cls-1 {
-    fill: #333;
-}
-footer .logo svg .cls-2 {
-    fill: #fff;
 }
 footer .title {
     white-space: nowrap;

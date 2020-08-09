@@ -154,7 +154,12 @@ $headerBanners = array_filter($this->context->headerBanners, function (Banner $i
         <div class="container">
             <div class="inner">
                 <a class="logo" href="<?= Url::home(true) ?>">
-                    <?= $this->render('svgLogo') ?>
+                    <div class="logo-coloured">
+                        <?= $this->render('logoColoured') ?>
+                    </div>
+                    <div class="logo-white">
+                        <?= $this->render('logoWhite') ?>
+                    </div>
                 </a>
 
                 <button type="button" class="open-search-button" onclick="popupSearch()">

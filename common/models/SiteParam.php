@@ -14,6 +14,8 @@ use Yii;
  */
 class SiteParam extends \common\db\MyActiveRecord
 {
+    const LOGO_COLOURED = 'logo_coloured';
+    const LOGO_WHITE = 'logo_white';
     const COMPANY = 'company';
     const ADDRESS = 'address';
     const WORKSHOP = 'workshop';
@@ -39,6 +41,8 @@ class SiteParam extends \common\db\MyActiveRecord
     public function getParamLabels()
     {
         return [
+            self::LOGO_COLOURED => 'Coloured logo',
+            self::LOGO_WHITE => 'White logo',
             self::COMPANY => 'Company',
             self::ADDRESS => 'Address',
             self::WORKSHOP => 'Workshop',
@@ -54,8 +58,8 @@ class SiteParam extends \common\db\MyActiveRecord
             self::TRACKING_CODE => 'Tracking Code',
             self::FOOTER_C1_TITLE => 'Footer column 1 title',
             self::FOOTER_C2_TITLE => 'Footer column 2 title',
-            self::FOOTER_C1_LINK => 'Footer column 1 link: <name> | <link>',
-            self::FOOTER_C2_LINK => 'Footer column 2 link:  <name> | <link>',
+            self::FOOTER_C1_LINK => 'Footer column 1 link: NAME | LINK',
+            self::FOOTER_C2_LINK => 'Footer column 2 link: NAME | LINK',
             self::PAYMENT_LINK => 'Payment Link',
         ];
     }
@@ -141,7 +145,7 @@ class SiteParam extends \common\db\MyActiveRecord
             [['name', 'value', 'sort_order'], 'required'],
             [['sort_order'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['value'], 'string', 'max' => 2047],
+            [['value'], 'string', 'max' => 10000],
         ];
     }
 

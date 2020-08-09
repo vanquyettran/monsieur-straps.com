@@ -11,7 +11,7 @@ use yii\helpers\Url;
 $logo_block = function () {
     ?>
     <a class="logo" href="<?= Url::home() ?>" title="<?= Yii::$app->name ?>">
-        <?= $this->render('svgLogo') ?>
+        <?= $this->render('logoColoured') ?>
     </a>
     <div class="socials">
         <?php

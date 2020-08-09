@@ -22,7 +22,7 @@ class m180105_012828_create_site_param_table extends Migration
         $this->createTable('site_param', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'value' => $this->string(2047)->notNull(),
+            'value' => $this->string(10000)->notNull(),
             'sort_order' => $this->integer()->notNull()->defaultValue(0),
         ], $tableOptions);
     }

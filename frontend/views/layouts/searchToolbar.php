@@ -1,3 +1,7 @@
+<?php
+use common\models\SiteParam;
+
+?>
 <div id="search-toolbar" class="search-toolbar">
     <div class="container">
         <gcse:search></gcse:search>
@@ -5,7 +9,7 @@
 </div>
 <script>
     (function() {
-        var cx = '018283733847891945836:ya8azoeuwbg';
+        var cx = "<?= ($cx = SiteParam::findOneByName(SiteParam::GOOGLE_CUSTOM_SEARCH_ID)) ? $cx->value : '018283733847891945836:ya8azoeuwbg' ?>";
         var gcse = document.createElement('script');
         gcse.type = 'text/javascript';
         gcse.async = true;

@@ -33,6 +33,7 @@ class SiteParam extends \common\db\MyActiveRecord
     const FOOTER_C2_TITLE = 'footer_c2_title';
     const FOOTER_C1_LINK = 'footer_c1_link';
     const FOOTER_C2_LINK = 'footer_c2_link';
+    const FOOTER_CONTACT_TITLE = 'footer_contact_title';
     const PAYMENT_LINK = 'payment_link';
     const GOOGLE_CUSTOM_SEARCH_ID = 'google_custom_search_id';
     const FAVICON_URL = 'favicon_url';
@@ -62,6 +63,7 @@ class SiteParam extends \common\db\MyActiveRecord
             self::FOOTER_C2_TITLE => 'Footer column 2 title',
             self::FOOTER_C1_LINK => 'Footer column 1 link: NAME | LINK',
             self::FOOTER_C2_LINK => 'Footer column 2 link: NAME | LINK',
+            self::FOOTER_CONTACT_TITLE => 'Footer contact title',
             self::PAYMENT_LINK => 'Payment Link',
             self::GOOGLE_CUSTOM_SEARCH_ID => 'Google Custom Search ID',
             self::FAVICON_URL => 'Favicon URL',

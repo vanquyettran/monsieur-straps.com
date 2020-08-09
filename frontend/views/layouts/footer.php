@@ -126,7 +126,7 @@ $footer_c2_title = SiteParam::findOneByName(SiteParam::FOOTER_C2_TITLE);
                 }
                 ?>
                 <div class="ft-col">
-                    <h3 class="title">Contact</h3>
+                    <h3 class="title"><?= ($contactTitle = SiteParam::findOneByName(SiteParam::FOOTER_CONTACT_TITLE)) ? $contactTitle->value : 'Contact' ?></h3>
                     <ul class="links">
                         <?php
                         $phone_values = array_map(function (SiteParam $param) {

@@ -9,6 +9,7 @@
 namespace frontend\models;
 
 use common\models\Image;
+use common\models\SiteParam;
 use common\models\UrlParam;
 use Yii;
 use yii\base\Model;
@@ -219,7 +220,7 @@ class SeoInfo extends Model
         }
         $view->registerLinkTag([
             'rel' => 'shortcut icon',
-            'href' => Yii::getAlias('@web/favicon.ico')
+            'href' => ($faviconUrl = SiteParam::findOneByName(SiteParam::FAVICON_URL)) ? $faviconUrl->value : Yii::getAlias('@web/favicon.ico')
         ]);
         if ($this->ampLink) {
             $view->registerLinkTag([

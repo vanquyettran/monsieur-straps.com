@@ -36,6 +36,7 @@ class SiteParam extends \common\db\MyActiveRecord
     const FOOTER_CONTACT_TITLE = 'footer_contact_title';
     const PAYMENT_LINK = 'payment_link';
     const GOOGLE_CUSTOM_SEARCH_ID = 'google_custom_search_id';
+    const GOOGLE_CUSTOM_SEARCH_API_KEY = 'google_custom_search_api_key';
     const FAVICON_URL = 'favicon_url';
 
     /**
@@ -66,6 +67,7 @@ class SiteParam extends \common\db\MyActiveRecord
             self::FOOTER_CONTACT_TITLE => 'Footer contact title',
             self::PAYMENT_LINK => 'Payment Link',
             self::GOOGLE_CUSTOM_SEARCH_ID => 'Google Custom Search ID',
+            self::GOOGLE_CUSTOM_SEARCH_API_KEY => 'Google Custom Search API Key',
             self::FAVICON_URL => 'Favicon URL',
         ];
     }

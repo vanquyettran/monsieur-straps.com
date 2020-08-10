@@ -5,6 +5,8 @@
  * Date: 9/30/2018
  * Time: 2:05 PM
  */
+use common\models\SiteParam;
+
 ?>
 <script>
     // init focus handler
@@ -165,8 +167,8 @@
      * @return {string}
      */
     function getSearchUrl(query, pageSize, pageIndex) {
-        var apiKey = '<?= Yii::$app->params['googleSearchApiKey'] ?>';
-        var customId = '<?= Yii::$app->params['googleSearchCustomId'] ?>';
+        var apiKey = '<?= ($apiKey = SiteParam::findOneByName(SiteParam::GOOGLE_CUSTOM_SEARCH_API_KEY)) ? $apiKey->value : '' ?>';
+        var customId = '<?= ($cx = SiteParam::findOneByName(SiteParam::GOOGLE_CUSTOM_SEARCH_ID)) ? $cx->value : '' ?>';
         var searchUrlTemplate = 'https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={customId}&q={query}&num={pageSize}&start={startIndex}';
         var startIndex = pageIndex * pageSize + 1; // startIndex is 1-based
         return searchUrlTemplate

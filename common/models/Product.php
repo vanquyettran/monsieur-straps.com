@@ -140,7 +140,7 @@ class Product extends \common\db\MyActiveRecord
 
     public function formatPrice($price)
     {
-        return number_format($price, 0, '.', ',') . ' VNĐ';
+        return number_format($price, 0, ',', '.') . ' VNĐ';
     }
 
     public function totalDiscountPercentage()

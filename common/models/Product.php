@@ -140,7 +140,7 @@ class Product extends \common\db\MyActiveRecord
 
     public function formatPrice($price)
     {
-        return '$' . number_format($price, 2, '.', ',');
+        return number_format($price, 0, '.', ',') . ' VNĐ';
     }
 
     public function totalDiscountPercentage()
@@ -205,7 +205,7 @@ class Product extends \common\db\MyActiveRecord
             [['name', 'heading', 'page_title', 'meta_title', 'meta_description', 'description'], 'validateAllCaps'],
             [['slug', 'code'], 'unique'],
             ['slug', 'validateSlug'],
-            ['price', 'number', 'min' => 1],
+            ['price', 'number', 'min' => 0],
             [['avatar_image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Image::className(), 'targetAttribute' => ['avatar_image_id' => 'id']],
             [['product_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductCategory::className(), 'targetAttribute' => ['product_category_id' => 'id']],
         ];

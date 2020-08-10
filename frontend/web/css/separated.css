@@ -1168,6 +1168,9 @@ footer .socials a:hover {
     font-size: 0.9em;
     margin-right: 0.5em;
 }
+.product-view .price .price-contact {
+    color: #F7B223;
+}
 .product-view .info:not(:first-child) {
     margin-top: 1rem;
 }
@@ -1353,10 +1356,25 @@ footer .socials a:hover {
     text-decoration: line-through;
     font-size: 0.9em;
 }
+.product-thumbnail-list .item .price-contact {
+    color: #F7B223;
+    font-weight: bold;
+    font-size: 0.96em;
+}
 .product-thumbnail-list .item .discount-sticky {
     display: block;
     position: absolute;
     background: #F7B223;
+    color: #fff;
+    padding: 0.1em 0.4em;
+    bottom: 0;
+    left: 0;
+    font-size: 0.95em;
+}
+.product-thumbnail-list .item .sold-out-sticky {
+    display: block;
+    position: absolute;
+    background: #888;
     color: #fff;
     padding: 0.1em 0.4em;
     bottom: 0;

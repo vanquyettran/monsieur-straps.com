@@ -27,6 +27,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'slug',
             [
+                'attribute' => 'production_status',
+                'value' => function (\backend\models\Product $model) {
+                    return $model->productionStatusLabel();
+                },
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'production_status',
+                    $searchModel->getProductionStatusLabels(),
+                    ['class'=>'form-control', 'prompt' => '']
+                )
+            ],
+            [
                 'attribute' => 'product_category_id',
                 'value' => function (\backend\models\Product $model) {
                     if ($category = $model->productCategory) {

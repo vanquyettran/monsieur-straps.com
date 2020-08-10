@@ -95,17 +95,27 @@ $replaceActionItems = function ($content) use ($preg_pattern, $preg_callback) {
                 </div>
                 <div class="price">
                     <?php
-                    if ($model->discountedPrice() < $model->price) {
+                    if ($model->price > 0) {
                         ?>
-                        <span class="price-old">
+                        <?php
+                        if ($model->discountedPrice() < $model->price) {
+                            ?>
+                            <span class="price-old">
                             <?= $model->formatPrice($model->price) ?>
                         </span>
-                        <?php
-                    }
-                    ?>
-                    <span class="price-sale">
+                            <?php
+                        }
+                        ?>
+                        <span class="price-sale">
                         <?= $model->formatPrice($model->discountedPrice()) ?>
                     </span>
+                        <?php
+                    } else {
+                        ?>
+                        <span class="price-contact">Giá: Liên hệ</span>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <div class="zoomed">
                     <div class="zoom-container" data-sticky-in="product-view" data-sticky-responsive="tablet|desktop"></div>

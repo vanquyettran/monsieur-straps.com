@@ -137,7 +137,7 @@ return [
                                 break;
                             case \common\models\User::ROLE_WRITER:
                                 switch (true) {
-                                    case ('delete' !== $action->id):
+                                    case ('delete' === $action->id):
                                         break;
                                     case $controller->module && in_array($controller->module->id, ['image']):
                                     case in_array($controller->id, [

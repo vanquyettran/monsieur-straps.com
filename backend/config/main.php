@@ -114,16 +114,48 @@ return [
                             case \common\models\User::ROLE_MODERATOR:
                                 switch (true) {
                                     case $controller->module && in_array($controller->module->id, ['image']):
-                                    case in_array($controller->id, ['game', 'article', 'article-category']):
+                                    case in_array($controller->id, [
+                                        'article-category',
+                                        'article',
+                                        'banner',
+                                        'menu-item',
+                                        'product-attribute',
+                                        'product-attribute-group',
+                                        'product-category',
+                                        'product-contact',
+                                        'product',
+                                        'product-customization',
+                                        'product-discount',
+                                        'product-order',
+                                        'product-order-to-product',
+                                        'site-param',
+                                        'static-page-info',
+                                        'tag',
+                                    ]):
                                         $allowed = true;
                                 }
                                 break;
                             case \common\models\User::ROLE_WRITER:
                                 switch (true) {
+                                    case ('delete' !== $action->id):
+                                        break;
                                     case $controller->module && in_array($controller->module->id, ['image']):
-                                    case in_array($controller->id, ['game', 'article', 'article-category']):
+                                    case in_array($controller->id, [
+                                        'article-category',
+                                        'article',
+                                        'banner',
+                                        'product-attribute',
+                                        'product-attribute-group',
+                                        'product-category',
+                                        'product-contact',
+                                        'product',
+                                        'product-customization',
+                                        'product-discount',
+                                        'product-order',
+                                        'product-order-to-product',
+                                        'tag',
+                                    ]):
                                         $allowed = true;
-                                    default:
                                 }
                                 break;
                             case \common\models\User::ROLE_GUESS:

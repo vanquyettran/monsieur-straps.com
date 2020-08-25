@@ -22,7 +22,7 @@ use yii\web\NotFoundHttpException;
 
 class ProductController extends BaseController
 {
-    const PAGE_SIZE = 20;
+    const PAGE_SIZE = 18;
 
     public function actionView()
     {

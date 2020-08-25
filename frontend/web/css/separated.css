@@ -2324,3 +2324,18 @@ html.has-popup body {
     width: 200px;
     z-index: 0;
 }
+
+/**
+ * SEE MORE
+ */
+.see-more {
+    width: 200px;
+    padding: 5px;
+    display: block;
+    margin: 20px auto 0;
+    cursor: pointer;
+}
+
+.see-more:hover {
+    background: #eee;
+}

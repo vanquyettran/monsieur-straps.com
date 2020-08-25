@@ -2334,8 +2334,9 @@ html.has-popup body {
     display: block;
     margin: 20px auto 0;
     cursor: pointer;
+    border: 1px solid #ddd;
 }
 
 .see-more:hover {
-    background: #eee;
+    background: #f2f2f2;
 }

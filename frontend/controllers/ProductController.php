@@ -119,7 +119,7 @@ class ProductController extends BaseController
             }
         }
 
-        $sort = Yii::$app->request->get('sort');
+        $sort = Yii::$app->request->get('sort', 'recently');
         $query->orderBy($this->getOrderBy($sort));
 
         $products = self::findModels($query, $page);

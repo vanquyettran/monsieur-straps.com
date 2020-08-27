@@ -182,7 +182,7 @@ $headerBanners = array_filter($this->context->headerBanners, function (Banner $i
                     <div class="dropdown" id="cart-dropdown">
                         <a class="link-to-cart"
                            href="<?= Url::to(['order/shopping-cart']) ?>"
-                           title="shopping cart">Go to shopping cart</a>
+                           title="shopping cart"><?= Yii::t('app', 'Go to shopping cart') ?></a>
                     </div>
                 </div>
             </div>

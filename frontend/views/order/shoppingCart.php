@@ -27,11 +27,11 @@
         var shoppingCartItems = getCacheData('shoppingCartItems', []);
 
         if (shoppingCartItems.length === 0) {
-            titleView.innerHTML = 'Your shopping cart currently is empty.';
+            titleView.innerHTML = '<?= Yii::t('app', 'Your shopping cart currently is empty.') ?>';
             return;
         }
 
-        titleView.innerHTML = 'Shopping cart';
+        titleView.innerHTML = '<?= Yii::t('app', 'Shopping cart') ?>';
 
         var tableHead = elm('thead', elm('tr', [
             elm('td', 'ID'),
@@ -81,154 +81,73 @@
 </script>
 
 <script>
-//    var form = document.querySelector('.contact-view form');
-//    form.onsubmit = function (ev) {
-//        ev.preventDefault();
-//        var customer = {
-//            name: '',
-//            address: '',
-//            address_2: '',
-//            city: '',
-//            province: '',
-//            country: '',
-//            postal_code: '',
-//            phone: '',
-//            email: ''
-//        };
-//        var attr;
-//        for (attr in customer) {
-//            if (customer.hasOwnProperty(attr)) {
-//                customer[attr] = form.querySelector('[name="' + attr + '"]').value;
-//            }
-//        }
-//        console.log(customer);
-//
-//        var shoppingCartItems = getCacheData('shoppingCartItems', []);
-//        var order = {
-//            totalValue: shoppingCartItems.reduce(function (amount, item) {
-//                return amount + item.quantity * item.discountedPrice;
-//            }, 0),
-//            deliveryFee: 0
-//        };
-//
-//        submitOrderForm(
-//            shoppingCartItems,
-//            order,
-//            customer,
-//            function (ProductOrder) {
-//                console.log('ProductOrder', ProductOrder);
-//                setCacheData('shoppingCartItems', []);
-//            },
-//            function (err) {
-//                console.log(err);
-//                setCacheData('shoppingCartItems', []);
-//            }
-//        );
-//    };
-//
-//    function submitOrderForm(products, order, customer, onSuccess, onError) {
-//        var fd = new FormData();
-//
-//        fd.append('products', JSON.stringify(products));
-//        fd.append('order', JSON.stringify(order));
-//        fd.append('customer', JSON.stringify(customer));
-//        fd.append('<?//= Yii::$app->request->csrfParam ?>//', '<?//= Yii::$app->request->csrfToken ?>//');
-//
-//        var xhr = new XMLHttpRequest();
-//
-//        xhr.open('POST', '<?//= \yii\helpers\Url::to(['product-api/save-product-order']) ?>//', true);
-//        xhr.onload = function () {
-//            var res = JSON.parse(xhr.responseText);
-//            if (res.ProductOrder && res.ProductOrder.id) {
-//                onSuccess(res.ProductOrder);
-//            } else {
-//                onError(res.errors);
-//            }
-//        };
-//        xhr.onerror = function () {
-//            onError({status: xhr.status, statusText: xhr.statusText});
-//        };
-//        xhr.send(fd);
-//    }
-</script>
-
-<script src="https://www.paypal.com/sdk/js?client-id=<?= \Yii::$app->params['paypal.clientID'] ?>"></script>
-<script>
-    function initPaypalButton() {
-        var shoppingCartItems = getCacheData('shoppingCartItems', []);
-        if (shoppingCartItems.length === 0) {
-            return;
-        }
-
-        var paymentView = document.querySelector('#payment-view');
-        paymentView.classList.remove('hidden');
-
-        var total_value = shoppingCartItems.reduce(function (amount, item) {
-            return amount + item.quantity * item.discountedPrice;
-        }, 0);
-
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    "intent": "CAPTURE",
-                    "purchase_units": [{
-                        "description": "This is the payment transaction description.",
-                        "amount": {
-                            "value": total_value,
-                            "currency_code": "USD"
-                        }
-                    }],
-                    "application_context": {}
-                });
-            },
-            onApprove: function(data, actions) {
-                // Capture the funds from the transaction
-                return actions.order.capture().then(function(details) {
-                    // Show a success message to your buyer
-                    console.log('Transaction completed by ' + details.payer.name.given_name);
-                    // Call your server to save the transaction
-                    var xhr = new XMLHttpRequest();
-                    xhr.onload = function () {
-                        var res = JSON.parse(xhr.responseText);
-                        switch (res.status) {
-                            case 'success':
-                                popup('Successfully! Thanks for your payment.');
-                                break;
-                            case 'db_insert_error':
-                                popup('Failed save your order. Please contact us for support. Paypal_Order_ID: ' + data.orderID);
-                                break;
-                            case 'paypal_error_res':
-                                popup('Failed to get the order details from PayPal. Please contact us for support. Paypal_Order_ID: ' + data.orderID);
-                                break;
-                            default:
-                                popup('Something went wrong! Please contact us for support. Paypal_Order_ID: ' + data.orderID);
-                        }
-
-                        // clear cart
-                        setCacheData('shoppingCartItems', []);
-                    };
-                    xhr.onerror = function () {
-                        popup('No internet connection.');
-                    };
-                    xhr.onloadend = function () {
-                        document.querySelector('body').classList.remove('loading-opacity');
-                    };
-                    xhr.open("POST", "<?= \yii\helpers\Url::to(['product-api/paypal-transaction-complete']) ?>", true);
-
-                    var fd = new FormData();
-                    fd.append('products', JSON.stringify(getCacheData('shoppingCartItems', [])));
-                    fd.append('paypal_order_id', data.orderID);
-                    fd.append('total_value', total_value);
-
-                    document.querySelector('body').classList.add('loading-opacity');
-                    xhr.send(fd);
-                });
-            },
-            onError: function (err) {
-
+    var form = document.querySelector('.contact-view form');
+    form.onsubmit = function (ev) {
+        ev.preventDefault();
+        var customer = {
+            name: '',
+            address: '',
+            address_2: '',
+            city: '',
+            province: '',
+            country: '',
+            postal_code: '',
+            phone: '',
+            email: ''
+        };
+        var attr;
+        for (attr in customer) {
+            if (customer.hasOwnProperty(attr)) {
+                customer[attr] = form.querySelector('[name="' + attr + '"]').value;
             }
-        }).render('#payment-view .paypal-button-container');
-    }
+        }
+        console.log(customer);
 
-    initPaypalButton();
+        var shoppingCartItems = getCacheData('shoppingCartItems', []);
+        var order = {
+            totalValue: shoppingCartItems.reduce(function (amount, item) {
+                return amount + item.quantity * item.discountedPrice;
+            }, 0),
+            deliveryFee: 0
+        };
+
+        submitOrderForm(
+            shoppingCartItems,
+            order,
+            customer,
+            function (ProductOrder) {
+                console.log('ProductOrder', ProductOrder);
+                setCacheData('shoppingCartItems', []);
+            },
+            function (err) {
+                console.log(err);
+                setCacheData('shoppingCartItems', []);
+            }
+        );
+    };
+
+    function submitOrderForm(products, order, customer, onSuccess, onError) {
+        var fd = new FormData();
+
+        fd.append('products', JSON.stringify(products));
+        fd.append('order', JSON.stringify(order));
+        fd.append('customer', JSON.stringify(customer));
+        fd.append('<?= Yii::$app->request->csrfParam ?>', '<?= Yii::$app->request->csrfToken ?>');
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', '<?= \yii\helpers\Url::to(['product-api/save-product-order']) ?>', true);
+        xhr.onload = function () {
+            var res = JSON.parse(xhr.responseText);
+            if (res.ProductOrder && res.ProductOrder.id) {
+                onSuccess(res.ProductOrder);
+            } else {
+                onError(res.errors);
+            }
+        };
+        xhr.onerror = function () {
+            onError({status: xhr.status, statusText: xhr.statusText});
+        };
+        xhr.send(fd);
+    }
 </script>

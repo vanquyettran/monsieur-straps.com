@@ -88,7 +88,7 @@ if (count($category->bannerImages) > 0) {
                 <form action="" method="get" class="filter-form" id="filter-form">
                     <div class="groups">
                         <div class="group">
-                            <h4 class="name">Sort By</h4>
+                            <h4 class="name"><?= Yii::t('app', 'Sort By') ?></h4>
                             <div class="options">
                                 <label>
                                     <input type="radio"
@@ -97,7 +97,7 @@ if (count($category->bannerImages) > 0) {
                                            <?= 'recently' == $sort ? 'checked' : '' ?>
                                     >
                                     <b></b>
-                                    <span>Recently</span>
+                                    <span><?= Yii::t('app', 'Recently') ?></span>
                                 </label>
                                 <label>
                                     <input type="radio"
@@ -106,7 +106,7 @@ if (count($category->bannerImages) > 0) {
                                            <?= 'price_up' == $sort ? 'checked' : '' ?>
                                     >
                                     <b></b>
-                                    <span>Price Ascending</span>
+                                    <span><?= Yii::t('app', 'Price Ascending') ?></span>
                                 </label>
                                 <label>
                                     <input type="radio"
@@ -115,7 +115,7 @@ if (count($category->bannerImages) > 0) {
                                            <?= 'price_down' == $sort ? 'checked' : '' ?>
                                     >
                                     <b></b>
-                                    <span>Price Descending</span>
+                                    <span><?= Yii::t('app', 'Price Descending') ?></span>
                                 </label>
                             </div>
                         </div>
@@ -172,7 +172,7 @@ if (count($category->bannerImages) > 0) {
                         type="button"
                         class="see-more"
                         onclick="loadMore(this.previousElementSibling, this)"
-                    >See more</button>
+                    ><?= Yii::t('app', 'See more') ?></button>
                     <?php
                 }
                 ?>

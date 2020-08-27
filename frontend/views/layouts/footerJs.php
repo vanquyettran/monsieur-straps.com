@@ -331,10 +331,10 @@ use common\models\SiteParam;
                     [
                         searchInput = elm('input', null, {
                             type: 'text',
-                            placeholder: 'What are you looking for?',
+                            placeholder: '<?= Yii::t('app', 'What are you looking for?') ?>',
                             'class': 'search-input'
                         }),
-                        submitButton = elm('button', 'Search', {
+                        submitButton = elm('button', '<?= Yii::t('app', 'Search') ?>', {
                             type: 'submit',
                             'class': 'submit-button'
                         })

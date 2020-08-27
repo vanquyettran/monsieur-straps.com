@@ -17,6 +17,8 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Search' => 'Tìm kiếm',
+    'What are you looking for?' => 'Bạn đang muốn tìm gì?',
     'Go to shopping cart' => 'Xem giỏ hàng',
     'Price Ascending' => 'Giá tăng dần',
     'Price Descending' => 'Giá giảm dần',

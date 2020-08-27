@@ -119,19 +119,8 @@ class ProductController extends BaseController
             }
         }
 
-        $sort = Yii::$app->request->get('sort', 'recently');
-
-        switch ($sort) {
-            case 'recently':
-                $query->orderBy('published_time desc');
-                break;
-            case 'price_down':
-                $query->orderBy('price desc');
-                break;
-            case 'price_up':
-                $query->orderBy('price asc');
-                break;
-        }
+        $sort = Yii::$app->request->get('sort');
+        $query->orderBy($this->getOrderBy($sort));
 
         $products = self::findModels($query, $page);
 
@@ -139,7 +128,10 @@ class ProductController extends BaseController
 
         $products = array_slice($products, 0, static::PAGE_SIZE);
 
-        $jsonParams = json_encode([ 'ancestor_product_category_id' => $category->id ]);
+        $jsonParams = json_encode([
+            'ancestor_product_category_id' => $category->id,
+            'sort' => $sort
+        ]);
 
         return $this->render('category', compact(
             'category',
@@ -151,6 +143,18 @@ class ProductController extends BaseController
             'page',
             'hasMore'
         ));
+    }
+
+    private function getOrderBy($sort) {
+        switch ($sort) {
+            case 'price_down':
+                return 'price desc';
+            case 'price_up':
+                return 'price asc';
+            case 'recently':
+            default:
+                return 'published_time desc';
+        }
     }
 
     /**
@@ -201,6 +205,13 @@ class ProductController extends BaseController
                 if (null === $query) {
                     $query = Product::find();
                 }
+
+                $sort = null;
+                if (isset($jsonParams['sort'])) {
+                    $sort = $jsonParams['sort'];
+                    unset($jsonParams['sort']);
+                }
+                $query->orderBy($this->getOrderBy($sort));
 
                 $query->andWhere($jsonParams);
             } catch (\Exception $e) {

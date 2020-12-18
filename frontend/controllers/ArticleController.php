@@ -43,14 +43,14 @@ class ArticleController extends BaseController
 
             //@TODO: Active corresponding menu item
 
-            $notInTopMenu = empty(array_filter($model->menuItems, function ($item) {
+            $notInTopMenu = 0 === count(array_filter($model->menuItems, function ($item) {
                 /**
                  * @var $item MenuItem
                  */
                 return $item->menu_id === MenuItem::MENU_ID_TOP;
             }));
 
-            $notInBottomMenu = empty(array_filter($model->menuItems, function ($item) {
+            $notInBottomMenu = 0 === count(array_filter($model->menuItems, function ($item) {
                 /**
                  * @var $item MenuItem
                  */
@@ -113,36 +113,23 @@ class ArticleController extends BaseController
         $this->seoInfo->loadAttrValues($category->attributes);
         $this->seoInfo->loadFromImageObject($category->avatarImage);
 
-        $childCategories = $category->findChildren();
+        $page = 1;
 
-        if (count($childCategories) == 0) {
+        $articles = self::findModels($category->getAllArticles(), $page);
 
-            $page = 1;
+        $hasMore = isset($articles[static::PAGE_SIZE]);
 
-            $articles = self::findModels($category->getAllArticles(), $page);
+        $articles = array_slice($articles, 0, static::PAGE_SIZE);
 
-            $hasMore = isset($articles[static::PAGE_SIZE]);
+        $queryParams = ['ancestor_article_category_id' => $category->id];
 
-            $articles = array_slice($articles, 0, static::PAGE_SIZE);
-
-            $queryParams = ['ancestor_article_category_id' => $category->id];
-
-            return $this->render('category', compact(
-                'category',
-                'articles',
-                'queryParams',
-                'page',
-                'hasMore'
-            ));
-
-        } else {
-
-            return $this->render('categories', [
-                'parentCategory' => $category,
-                'categories' => $childCategories
-            ]);
-
-        }
+        return $this->render('category', compact(
+            'category',
+            'articles',
+            'queryParams',
+            'page',
+            'hasMore'
+        ));
     }
 
     /**

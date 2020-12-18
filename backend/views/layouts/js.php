@@ -30,8 +30,11 @@ use yii\web\View;
                 ],
 
                 // Configure your file manager integration. This example uses CKFinder 3 for PHP.
-                filebrowserImageBrowseUrl: '<?= Yii::getAlias('@web/libs/ckfinder/ckfinder.html?type=Images') ?>',
                 filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserImageBrowseUrl: '<?php echo Url::to([
+                    '/ckeditor/browse-image',
+                    Yii::$app->request->csrfParam => Yii::$app->request->csrfToken
+                ]) ?>',
                 filebrowserImageUploadUrl: '<?php echo Url::to([
                     '/api/ckeditor-upload-image',
                     Yii::$app->request->csrfParam => Yii::$app->request->csrfToken
@@ -43,8 +46,11 @@ use yii\web\View;
                 height: 300,
 
                 // Configure your file manager integration. This example uses CKFinder 3 for PHP.
-                filebrowserImageBrowseUrl: '<?= Yii::getAlias('@web/libs/ckfinder/ckfinder.html?type=Images') ?>',
                 filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserImageBrowseUrl: '<?php echo Url::to([
+                    '/ckeditor/browse-image',
+                    Yii::$app->request->csrfParam => Yii::$app->request->csrfToken
+                ]) ?>',
                 filebrowserImageUploadUrl: '<?php echo Url::to([
                     '/api/ckeditor-upload-image',
                     Yii::$app->request->csrfParam => Yii::$app->request->csrfToken
@@ -418,6 +424,7 @@ $this->registerJsFile(
         img_select_elm.parentNode.insertBefore(process_bar, img_select_elm);
         img_select_elm.parentNode.insertBefore(img_input, img_select_elm);
         img_preview_wrapper.className = "image-preview-wrapper";
+        img_preview_wrapper.id = "image-preview-wrapper--" + img_select_id;
         img_input.className = "image-file-input";
         img_input.type = "file";
         img_input.accept = "image/*";

@@ -1,0 +1,3 @@
+[submodule "common/modules/image"]
+	path = common/modules/image
+	url = https://github.com/vanquyettran/yii2-image2.git

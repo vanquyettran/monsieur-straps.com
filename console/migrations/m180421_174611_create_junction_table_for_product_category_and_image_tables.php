@@ -44,7 +44,8 @@ class m180421_174611_create_junction_table_for_product_category_and_image_tables
             'product_category_id',
             'product_category',
             'id',
-            'RESTRICT'
+            'CASCADE',
+            'CASCADE'
         );
 
         // creates index for column `banner_image_id`
@@ -61,7 +62,8 @@ class m180421_174611_create_junction_table_for_product_category_and_image_tables
             'banner_image_id',
             'image',
             'id',
-            'RESTRICT'
+            'CASCADE',
+            'CASCADE'
         );
     }
 

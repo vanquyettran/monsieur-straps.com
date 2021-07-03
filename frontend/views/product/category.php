@@ -156,7 +156,7 @@ if (count($category->bannerImages) > 0) {
                 </form>
             </div>
             <div class="products-col">
-                <div class="clr product-thumbnail-list aspect-ratio __3x2">
+                <div class="clr product-thumbnail-list aspect-ratio <?= Yii::$app->params['product_image_ratio_class'] ?>">
                     <?php
                     if (count($products) > 0) {
                         echo $this->render('_thumbnailList', ['models' => $products]);

@@ -170,7 +170,7 @@ $replaceActionItems = function ($content) use ($preg_pattern, $preg_callback) {
             <div class="product-related">
                 <h3 class="title">Similar products</h3>
                 <div class="body">
-                    <div class="clr product-thumbnail-list aspect-ratio __3x2">
+                    <div class="clr product-thumbnail-list aspect-ratio <?= Yii::$app->params['product_image_ratio_class'] ?>">
                         <?= $this->render('_thumbnailList', ['models' => $relatedItems]) ?>
                     </div>
                 </div>

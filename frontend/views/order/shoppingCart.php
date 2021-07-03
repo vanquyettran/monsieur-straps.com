@@ -54,7 +54,7 @@
 
             return elm('tr', [
                 elm('td', item.id),
-                elm('td', elm('div', elm('span', elm('img', null, {src: item.avatar})), {'class': 'image aspect-ratio __3x2'})),
+                elm('td', elm('div', elm('span', elm('img', null, {src: item.avatar})), {'class': 'image aspect-ratio <?= Yii::$app->params['product_image_ratio_class'] ?>'})),
                 elm('td', elm('a', item.name, {href: item.url, target: '_blank'})),
                 elm('td', item.code),
                 elm('td', elm('ul', options.map(function (option) {

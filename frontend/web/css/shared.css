@@ -228,6 +228,14 @@ i.icon {
 .frame.aspect-ratio.__3x2 {
     padding-bottom: calc(200% / 3);
 }
+.aspect-ratio.__25x29 .image > span,
+.aspect-ratio.__25x29 .video > div,
+.aspect-ratio.__25x29 .frame,
+.image.aspect-ratio.__25x29 > span,
+.video.aspect-ratio.__25x29 > div,
+.frame.aspect-ratio.__25x29 {
+    padding-bottom: calc(2900% / 25);
+}
 .aspect-ratio.__3x1 .image > span,
 .aspect-ratio.__3x1 .video > div,
 .aspect-ratio.__3x1 .frame,

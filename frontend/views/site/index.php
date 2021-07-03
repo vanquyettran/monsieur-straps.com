@@ -13,7 +13,7 @@ use yii\helpers\Html;
 ?>
 <div class="container" id="home-featured-products">
     <div class="inner">
-        <div class="clr product-thumbnail-list aspect-ratio __3x2">
+        <div class="clr product-thumbnail-list aspect-ratio <?= Yii::$app->params['product_image_ratio_class'] ?>">
             <?= $this->render('//product/_thumbnailList', [
                 'models' => $featured_products
             ]) ?>

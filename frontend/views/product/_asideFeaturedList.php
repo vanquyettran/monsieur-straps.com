@@ -58,7 +58,7 @@ $products_4 = Product::find()
 $products = array_merge($products_1, $products_2, $products_3, $products_4);
 
 ?>
-<div class="aside-featured-stories aspect-ratio __3x2">
+<div class="aside-featured-stories aspect-ratio <?= Yii::$app->params['product_image_ratio_class'] ?>">
     <div class="title">Tin nổi bật</div>
     <ul class="clr">
         <?php

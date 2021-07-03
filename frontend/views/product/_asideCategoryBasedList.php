@@ -29,7 +29,7 @@ foreach ($product_categories as $category) {
         ->limit(5)
         ->all();
     ?>
-    <div class="aside-story-list aspect-ratio __3x2">
+    <div class="aside-story-list aspect-ratio <?= Yii::$app->params['product_image_ratio_class'] ?>">
         <?= $category->viewAnchor(null, ['class' => 'title']) ?>
         <ul>
             <?php

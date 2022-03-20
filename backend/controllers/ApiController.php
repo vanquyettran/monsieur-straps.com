@@ -182,7 +182,7 @@ class ApiController extends Controller
         $image = new Image();
         $image->quality = self::DEFAULT_IMAGE_QUALITY;
         $image->image_name_to_basename = true;
-        $image->input_resize_keys = $module->params['input_resize_keys'];
+        $image->input_resize_keys = ['400x400'];
         if ($image->saveFileAndModel($file)) {
             return [
                 'success' => true,

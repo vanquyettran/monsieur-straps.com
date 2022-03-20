@@ -12,6 +12,10 @@ use Yii;
 
 class Image extends \common\modules\image\models\Image
 {
+    public static function getMaxImageSize() {
+        return 500 * 1024;
+    }
+    
     /** Query Template */
 
     /**

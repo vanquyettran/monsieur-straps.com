@@ -2340,3 +2340,36 @@ html.has-popup body {
 .see-more:hover {
     background: #f2f2f2;
 }
+
+/**
+ * PAGINATION
+ */
+ul.pagination {
+    margin: 20px auto 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4em;
+    flex-wrap: wrap;
+}
+
+ul.pagination li {
+    list-style: none;
+}
+
+ul.pagination li a {
+    display: block;
+    padding: 0.4em 0.8em;
+    border: 1px solid #ddd;
+}
+
+ul.pagination li:hover a {
+    border: 1px solid #F7B223;
+}
+
+ul.pagination li.active a {
+    border: 1px solid #F7B223;
+    background: #F7B223;
+    color: #fff;
+}

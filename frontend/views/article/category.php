@@ -92,7 +92,6 @@ if ($bannerImage = $category->bannerImage) {
                     ?>
                 </div>
             </div>
-
     </div>
 </div>
 

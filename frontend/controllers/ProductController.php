@@ -19,6 +19,7 @@ use Yii;
 use yii\db\ActiveQuery;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
+use yii\data\Pagination;
 
 class ProductController extends BaseController
 {
@@ -119,19 +120,22 @@ class ProductController extends BaseController
             }
         }
 
+        $query
+            ->andWhere(['active' => 1, 'visible' => 1])
+            ->andWhere(['<', 'published_time', date('Y-m-d H:i:s')]);
+
         $sort = Yii::$app->request->get('sort', 'recently');
         $query->orderBy($this->getOrderBy($sort));
 
-        $products = self::findModels($query, $page);
-
-        $hasMore = isset($products[static::PAGE_SIZE]);
-
-        $products = array_slice($products, 0, static::PAGE_SIZE);
-
-        $jsonParams = json_encode([
-            'ancestor_product_category_id' => $category->id,
-            'sort' => $sort
+        $count = $query->count();
+        $pagination = new Pagination([
+            'totalCount' => $count,
+            'defaultPageSize' => self::PAGE_SIZE,
         ]);
+
+        $products = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
 
         return $this->render('category', compact(
             'category',
@@ -139,9 +143,7 @@ class ProductController extends BaseController
             'attributeGroups',
             'groupedAttributes',
             'sort',
-            'jsonParams',
-            'page',
-            'hasMore'
+            'pagination'
         ));
     }
 
@@ -157,82 +159,82 @@ class ProductController extends BaseController
         }
     }
 
-    /**
-     * @return string
-     * @throws BadRequestHttpException
-     */
-    public function actionAjaxGetItems()
-    {
-        $this->layout = false;
+    // /**
+    //  * @return string
+    //  * @throws BadRequestHttpException
+    //  */
+    // public function actionAjaxGetItems()
+    // {
+    //     $this->layout = false;
 
-        if (!Yii::$app->request->isPost) {
-            throw new BadRequestHttpException();
-        }
+    //     if (!Yii::$app->request->isPost) {
+    //         throw new BadRequestHttpException();
+    //     }
 
-        $viewId = Yii::$app->request->getBodyParam(UrlParam::VIEW_ID);
-        if (!in_array($viewId, ['_simpleList', '_thumbnailList'])) {
-            throw new BadRequestHttpException();
-        }
+    //     $viewId = Yii::$app->request->getBodyParam(UrlParam::VIEW_ID);
+    //     if (!in_array($viewId, ['_simpleList', '_thumbnailList'])) {
+    //         throw new BadRequestHttpException();
+    //     }
 
-        $jsonParams = Yii::$app->request->getBodyParam(UrlParam::JSON_PARAMS);
-        $jsonParams = @json_decode($jsonParams, true);
+    //     $jsonParams = Yii::$app->request->getBodyParam(UrlParam::JSON_PARAMS);
+    //     $jsonParams = @json_decode($jsonParams, true);
 
 
-        if (is_array($jsonParams)) {
-            try {
-                $query = null;
+    //     if (is_array($jsonParams)) {
+    //         try {
+    //             $query = null;
 
-                if (isset($jsonParams['ancestor_product_category_id'])) {
-                    $productCategory = ProductCategory::findOne($jsonParams['ancestor_product_category_id']);
-                    if ($productCategory) {
-                        $query = $productCategory->getAllProducts();
-                    } else {
-                        throw new BadRequestHttpException('`ProductCategory` not found.');
-                    }
-                    unset($jsonParams['ancestor_product_category_id']);
-                }
+    //             if (isset($jsonParams['ancestor_product_category_id'])) {
+    //                 $productCategory = ProductCategory::findOne($jsonParams['ancestor_product_category_id']);
+    //                 if ($productCategory) {
+    //                     $query = $productCategory->getAllProducts();
+    //                 } else {
+    //                     throw new BadRequestHttpException('`ProductCategory` not found.');
+    //                 }
+    //                 unset($jsonParams['ancestor_product_category_id']);
+    //             }
 
-                if (isset($jsonParams['tag_id'])) {
-                    $tag = Tag::findOne($jsonParams['tag_id']);
-                    if ($tag) {
-                        $query = $tag->getProducts();
-                    } else {
-                        throw new BadRequestHttpException('`Tag` not found.');
-                    }
-                    unset($jsonParams['tag_id']);
-                }
+    //             if (isset($jsonParams['tag_id'])) {
+    //                 $tag = Tag::findOne($jsonParams['tag_id']);
+    //                 if ($tag) {
+    //                     $query = $tag->getProducts();
+    //                 } else {
+    //                     throw new BadRequestHttpException('`Tag` not found.');
+    //                 }
+    //                 unset($jsonParams['tag_id']);
+    //             }
 
-                if (null === $query) {
-                    $query = Product::find();
-                }
+    //             if (null === $query) {
+    //                 $query = Product::find();
+    //             }
 
-                $sort = null;
-                if (isset($jsonParams['sort'])) {
-                    $sort = $jsonParams['sort'];
-                    unset($jsonParams['sort']);
-                }
-                $query->orderBy($this->getOrderBy($sort));
+    //             $sort = null;
+    //             if (isset($jsonParams['sort'])) {
+    //                 $sort = $jsonParams['sort'];
+    //                 unset($jsonParams['sort']);
+    //             }
+    //             $query->orderBy($this->getOrderBy($sort));
 
-                $query->andWhere($jsonParams);
-            } catch (\Exception $e) {
-                throw new BadRequestHttpException($e->getMessage());
-            }
-        } else {
-            throw new BadRequestHttpException('`jsonParams` must be an array.');
-        }
+    //             $query->andWhere($jsonParams);
+    //         } catch (\Exception $e) {
+    //             throw new BadRequestHttpException($e->getMessage());
+    //         }
+    //     } else {
+    //         throw new BadRequestHttpException('`jsonParams` must be an array.');
+    //     }
 
-        $page = (int) Yii::$app->request->getBodyParam(UrlParam::PAGE, 1);
+    //     $page = (int) Yii::$app->request->getBodyParam(UrlParam::PAGE, 1);
 
-        $models = self::findModels($query, $page);
+    //     $models = self::findModels($query, $page);
 
-        $hasMore = isset($models[static::PAGE_SIZE]);
+    //     $hasMore = isset($models[static::PAGE_SIZE]);
 
-        $models = array_slice($models, 0, self::PAGE_SIZE);
+    //     $models = array_slice($models, 0, self::PAGE_SIZE);
 
-        $content = $this->render($viewId, compact('models'));
+    //     $content = $this->render($viewId, compact('models'));
 
-        return json_encode(compact('content', 'page', 'hasMore'));
-    }
+    //     return json_encode(compact('content', 'page', 'hasMore'));
+    // }
 
     public function actionAjaxUpdateCounter()
     {
@@ -270,18 +272,18 @@ class ProductController extends BaseController
         return $model;
     }
 
-    /**
-     * @param ActiveQuery $query
-     * @param int $page
-     * @return Product[]
-     */
-    public static function findModels($query, $page = 1)
-    {
-        return $query
-            ->andWhere(['active' => 1, 'visible' => 1])
-            ->andWhere(['<', 'published_time', date('Y-m-d H:i:s')])
-            ->limit(static::PAGE_SIZE + 1)
-            ->offset(($page - 1) * static::PAGE_SIZE)
-            ->all();
-    }
+    // /**
+    //  * @param ActiveQuery $query
+    //  * @param int $page
+    //  * @return Product[]
+    //  */
+    // public static function findModels($query, $page = 1)
+    // {
+    //     return $query
+    //         ->andWhere(['active' => 1, 'visible' => 1])
+    //         ->andWhere(['<', 'published_time', date('Y-m-d H:i:s')])
+    //         ->limit(static::PAGE_SIZE + 1)
+    //         ->offset(($page - 1) * static::PAGE_SIZE)
+    //         ->all();
+    // }
 }

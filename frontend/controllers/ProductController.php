@@ -272,18 +272,18 @@ class ProductController extends BaseController
         return $model;
     }
 
-    // /**
-    //  * @param ActiveQuery $query
-    //  * @param int $page
-    //  * @return Product[]
-    //  */
-    // public static function findModels($query, $page = 1)
-    // {
-    //     return $query
-    //         ->andWhere(['active' => 1, 'visible' => 1])
-    //         ->andWhere(['<', 'published_time', date('Y-m-d H:i:s')])
-    //         ->limit(static::PAGE_SIZE + 1)
-    //         ->offset(($page - 1) * static::PAGE_SIZE)
-    //         ->all();
-    // }
+    /**
+     * @param ActiveQuery $query
+     * @param int $page
+     * @return Product[]
+     */
+    public static function findModels($query, $page = 1)
+    {
+        return $query
+            ->andWhere(['active' => 1, 'visible' => 1])
+            ->andWhere(['<', 'published_time', date('Y-m-d H:i:s')])
+            ->limit(static::PAGE_SIZE + 1)
+            ->offset(($page - 1) * static::PAGE_SIZE)
+            ->all();
+    }
 }

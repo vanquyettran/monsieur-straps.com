@@ -178,7 +178,7 @@ if (count($category->bannerImages) > 0) {
                 }*/
                 echo LinkPager::widget([
                     'pagination' => $pagination,
-                    'maxButtonCount' => 14
+                    'maxButtonCount' => 15
                 ]);
                 ?>
             </div>

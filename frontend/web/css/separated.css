@@ -2350,7 +2350,7 @@ ul.pagination {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 0.4em;
+    gap: 0.3em;
     flex-wrap: wrap;
 }
 
@@ -2360,7 +2360,7 @@ ul.pagination li {
 
 ul.pagination li a {
     display: block;
-    padding: 0.4em 0.8em;
+    padding: 0.3em 0.6em;
     border: 1px solid #ddd;
 }
 

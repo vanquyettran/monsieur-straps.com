@@ -2358,7 +2358,8 @@ ul.pagination li {
     list-style: none;
 }
 
-ul.pagination li a {
+ul.pagination li a,
+ul.pagination li span {
     display: block;
     padding: 0.3em 0.6em;
     border: 1px solid #ddd;

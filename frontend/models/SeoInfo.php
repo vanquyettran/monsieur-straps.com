@@ -229,5 +229,4 @@ class SeoInfo extends Model
             ]);
         }
     }
-
 }

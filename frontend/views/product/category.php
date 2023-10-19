@@ -14,6 +14,7 @@ use common\models\ProductAttributeGroup;
 use frontend\models\ProductCategory;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\widgets\LinkPager;
 ?>
 <?php
 if (count($category->bannerImages) > 0) {
@@ -166,7 +167,7 @@ if (count($category->bannerImages) > 0) {
                     ?>
                 </div>
                 <?php
-                if ($hasMore) {
+                /*if ($hasMore) {
                     ?>
                     <button
                         type="button"
@@ -174,14 +175,18 @@ if (count($category->bannerImages) > 0) {
                         onclick="loadMore(this.previousElementSibling, this)"
                     ><?= Yii::t('app', 'See more') ?></button>
                     <?php
-                }
+                }*/
+                echo LinkPager::widget([
+                    'pagination' => $pagination,
+                    'maxButtonCount' => 15
+                ]);
                 ?>
             </div>
         </div>
     </div>
 </div>
 
-
+<?php /*
 <script>
     var jsonParams = <?= $jsonParams ?>;
     var page = <?= $page + 1 ?>;
@@ -191,7 +196,7 @@ if (count($category->bannerImages) > 0) {
         });
     }
 </script>
-
+*/ ?>
 
 <script>
     function isSmallScreen() {

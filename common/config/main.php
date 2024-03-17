@@ -16,9 +16,7 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
         'cache' => [
-            'class' => 'yii\caching\FileCache',
-            'cachePath' => '@common/runtime/cache',
-            'dirMode' => 0777,
+            'class' => 'yii\caching\DummyCache',
         ],
         'frontendUrlManager' => [
             'class' => 'yii\web\UrlManager',

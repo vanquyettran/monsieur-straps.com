@@ -1007,7 +1007,8 @@ footer .socials a:hover {
         width: 100%;
     }
     footer .sm-logo-block-wrapper {
-        text-align: center;
+        display: flex;
+        justify-content: center;
     }
     footer .links-block {
         margin-top: 2rem;

@@ -1006,6 +1006,9 @@ footer .socials a:hover {
     footer .ft-table:not(.has-c1):not(.has-c2) .ft-col {
         width: 100%;
     }
+    footer .sm-logo-block-wrapper {
+        text-align: center;
+    }
     footer .links-block {
         margin-top: 2rem;
     }

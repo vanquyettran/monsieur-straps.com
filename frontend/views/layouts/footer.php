@@ -69,7 +69,7 @@ $footer_c2_title = SiteParam::findOneByName(SiteParam::FOOTER_C2_TITLE);
 ?>
 <footer class="container">
     <div class="inner">
-        <div class="sm-only">
+        <div class="sm-logo-block-wrapper sm-only">
             <?php $logo_block(); ?>
         </div>
         <div class="links-block ft-table <?= $footer_c1_title !== null ? 'has-c1' : '' ?> <?= $footer_c2_title !== null ? 'has-c2' : '' ?>">

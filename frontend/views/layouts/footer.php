@@ -9,7 +9,8 @@ use common\models\SiteParam;
 use yii\helpers\Url;
 
 $logo_block = function () {
-    ?>
+?>
+<div class="logo-block">
     <a class="logo" href="<?= Url::home() ?>" title="<?= Yii::$app->name ?>">
         <?= $this->render('logoColoured') ?>
     </a>
@@ -59,7 +60,8 @@ $logo_block = function () {
         }
         ?>
     </div>
-    <?php
+</div>
+<?php
 };
 
 $footer_c1_title = SiteParam::findOneByName(SiteParam::FOOTER_C1_TITLE);
@@ -67,7 +69,7 @@ $footer_c2_title = SiteParam::findOneByName(SiteParam::FOOTER_C2_TITLE);
 ?>
 <footer class="container">
     <div class="inner">
-        <div class="sm-logo-block sm-only">
+        <div class="sm-only">
             <?php $logo_block(); ?>
         </div>
         <div class="links-block ft-table <?= $footer_c1_title !== null ? 'has-c1' : '' ?> <?= $footer_c2_title !== null ? 'has-c2' : '' ?>">

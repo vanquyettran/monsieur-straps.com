@@ -925,6 +925,10 @@ footer .ft-col {
     display: table-cell;
     vertical-align: top;
 }
+footer .logo-block {
+    display: table;
+    text-align: center;
+}
 footer .logo {
     width: 9.5em;
     display: inline-block;
@@ -962,6 +966,7 @@ footer .links {
 footer .socials {
     font-size: 22px;
     margin-top: 0.25rem;
+    text-align: center;
 }
 footer .links a:hover {
     text-decoration: underline;
@@ -1000,9 +1005,6 @@ footer .socials a:hover {
     }
     footer .ft-table:not(.has-c1):not(.has-c2) .ft-col {
         width: 100%;
-    }
-    footer .sm-logo-block {
-        text-align: center;
     }
     footer .links-block {
         margin-top: 2rem;

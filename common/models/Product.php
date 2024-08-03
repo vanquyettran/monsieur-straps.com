@@ -140,7 +140,14 @@ class Product extends \common\db\MyActiveRecord
 
     public function formatPrice($price)
     {
-        return number_format($price, 0, ',', '.') . ' VNĐ';
+        $currencyCode = Yii::$app->params['currencyCode'];
+        switch ($currencyCode) {
+            case 'USD':
+                return '$' . number_format($price, 0, '.', ',');
+            case 'VND':
+            default:
+                return number_format($price, 0, ',', '.') . ' VNĐ';
+        }
     }
 
     public function totalDiscountPercentage()

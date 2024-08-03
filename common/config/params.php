@@ -11,4 +11,5 @@ return [
     'paypal.clientID' => 'AeDdMjpwHKx05zK8ge1h79gPUeUhjz6c4xx83Uy1U0M1_jbWD969X56O_tHKXmlrghzx19ZIb3EvLdj3',
     'paypal.clientSecret' => 'EI13SW0w10bs8Zizr1ql0K_g1-iT8Xwq3CiaoJ4Fa_8OezgsNagJsK6s1RBpNLcYiR8qS9p3pV5U-jxZ',
     'product_image_ratio_class' => '__3x2',
+    'currencyCode' => 'VND'
 ];

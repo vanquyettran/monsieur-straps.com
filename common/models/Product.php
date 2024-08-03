@@ -143,7 +143,7 @@ class Product extends \common\db\MyActiveRecord
         $currencyCode = Yii::$app->params['currencyCode'];
         switch ($currencyCode) {
             case 'USD':
-                return '$' . number_format($price, 0, '.', ',');
+                return 'USD ' . number_format($price, 2, '.', ',');
             case 'VND':
             default:
                 return number_format($price, 0, ',', '.') . ' VNĐ';

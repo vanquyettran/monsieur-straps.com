@@ -195,7 +195,7 @@ $headerBanners = array_filter($this->context->headerBanners, function (Banner $i
 <?= $content ?>
 
 <?= $this->render('footer') ?>
-<?= $this->render('fbChatOverlay') ?>
+<?php //echo $this->render('fbChatOverlay') ?>
 <?= $this->render('footerJs') ?>
 
 <?php echo $this->render('fbSDK') ?>

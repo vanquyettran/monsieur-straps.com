@@ -150,12 +150,12 @@ class ProductController extends BaseController
     private function getOrderBy($sort) {
         switch ($sort) {
             case 'price_down':
-                return 'price desc';
+                return 'price desc, id desc';
             case 'price_up':
-                return 'price asc';
+                return 'price asc, id desc';
             case 'recently':
             default:
-                return 'published_time desc';
+                return 'published_time desc, id desc';
         }
     }
 

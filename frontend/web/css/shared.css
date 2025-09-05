@@ -228,6 +228,14 @@ i.icon {
 .frame.aspect-ratio.__3x2 {
     padding-bottom: calc(200% / 3);
 }
+.aspect-ratio.__2x3 .image > span,
+.aspect-ratio.__2x3 .video > div,
+.aspect-ratio.__2x3 .frame,
+.image.aspect-ratio.__2x3 > span,
+.video.aspect-ratio.__2x3 > div,
+.frame.aspect-ratio.__2x3 {
+    padding-bottom: calc(300% / 2);
+}
 .aspect-ratio.__25x29 .image > span,
 .aspect-ratio.__25x29 .video > div,
 .aspect-ratio.__25x29 .frame,
@@ -284,6 +292,14 @@ i.icon {
     .video.aspect-ratio.__sm-3x2 > div,
     .frame.aspect-ratio.__sm-3x2 {
         padding-bottom: calc(200% / 3);
+    }
+    .aspect-ratio.__sm-2x3 .image > span,
+    .aspect-ratio.__sm-2x3 .video > div,
+    .aspect-ratio.__sm-2x3 .frame,
+    .image.aspect-ratio.__sm-2x3 > span,
+    .video.aspect-ratio.__sm-2x3 > div,
+    .frame.aspect-ratio.__sm-2x3 {
+        padding-bottom: calc(300% / 2);
     }
     .aspect-ratio.__sm-3x1 .image > span,
     .aspect-ratio.__sm-3x1 .video > div,
